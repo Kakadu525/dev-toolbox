@@ -3,20 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Dev Toolbox</title>
-<style>
-  body {
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background: #1e1e1e;
-    color: #ffffff;
-    font-family: sans-serif;
-  }
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Hello, Dev Toolbox!</h1>
+  <h1>Dev Toolbox — тест моста</h1>
+  <input type="text" id="input" placeholder="Напиши что-нибудь">
+  <button onclick="sendMessage()">Отправить в C++</button>
+  <p>Ответ от C++: <span id="output">—</span></p>
+
+  <script src="app.js"></script>
 </body>
 </html>

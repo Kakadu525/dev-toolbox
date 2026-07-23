@@ -10,6 +10,8 @@ public:
     void ResizeToWindow(HWND parentWindow);
 
 private:
+    void SetupMessageBridge();
+
     Microsoft::WRL::ComPtr<ICoreWebView2Controller> m_controller;
     Microsoft::WRL::ComPtr<ICoreWebView2> m_webview;
 };

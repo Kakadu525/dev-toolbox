@@ -1,6 +1,7 @@
 #include "WebViewHost.h"
 #include <shlwapi.h>
 #include <string>
+#include <cwctype>
 #pragma comment(lib, "shlwapi.lib")
 
 using namespace Microsoft::WRL;
@@ -25,6 +26,8 @@ void WebViewHost::Initialize(HWND parentWindow)
                             GetClientRect(parentWindow, &bounds);
                             m_controller->put_Bounds(bounds);
 
+                            SetupMessageBridge();
+
                             wchar_t exePath[MAX_PATH];
                             GetModuleFileNameW(nullptr, exePath, MAX_PATH);
                             PathRemoveFileSpecW(exePath);
@@ -37,6 +40,30 @@ void WebViewHost::Initialize(HWND parentWindow)
                         }).Get());
                 return S_OK;
             }).Get());
+}
+
+void WebViewHost::SetupMessageBridge()
+{
+    EventRegistrationToken token;
+    m_webview->add_WebMessageReceived(
+        Callback<ICoreWebView2WebMessageReceivedEventHandler>(
+            [this](ICoreWebView2* sender, ICoreWebView2WebMessageReceivedEventArgs* args) -> HRESULT
+            {
+                LPWSTR message = nullptr;
+                args->TryGetWebMessageAsString(&message);
+                if (message)
+                {
+                    std::wstring received(message);
+                    CoTaskMemFree(message);
+
+                    // Временный echo-тест: переводим в верхний регистр и отправляем обратно
+                    std::wstring response = received;
+                    for (auto& c : response) c = towupper(c);
+
+                    m_webview->PostWebMessageAsString(response.c_str());
+                }
+                return S_OK;
+            }).Get(), &token);
 }
 
 void WebViewHost::ResizeToWindow(HWND parentWindow)
