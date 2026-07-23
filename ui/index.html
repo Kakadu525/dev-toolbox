@@ -10,7 +10,8 @@
     <nav class="sidebar">
       <div class="sidebar-item active" data-tool="base64">Base64</div>
       <div class="sidebar-item" data-tool="hash">Hash Calculator</div>
-      <!-- Здесь будут новые инструменты -->
+      <div class="sidebar-item" data-tool="uuid">UUID Generator</div>
+      <!-- сюда будут добавляться новые инструменты -->
     </nav>
     <main class="content">
       <section id="tool-base64" class="tool-panel active">
@@ -32,12 +33,21 @@
         </div>
         <textarea id="hash-output" placeholder="Результат" readonly></textarea>
       </section>
+
+      <section id="tool-uuid" class="tool-panel">
+        <h2>UUID Generator</h2>
+        <div class="actions">
+          <button onclick="UuidTool.generate()">Сгенерировать</button>
+        </div>
+        <textarea id="uuid-output" placeholder="Результат" readonly></textarea>
+      </section>
     </main>
   </div>
 
   <script src="bridge.js"></script>
   <script src="tools/base64.js"></script>
   <script src="tools/hash.js"></script>
+  <script src="tools/uuid.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
