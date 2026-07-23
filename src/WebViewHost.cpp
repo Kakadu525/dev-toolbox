@@ -1,4 +1,6 @@
 #include "WebViewHost.h"
+#include "StringUtil.h"
+#include "ToolRegistry.h"
 #include <shlwapi.h>
 #include <string>
 #pragma comment(lib, "shlwapi.lib")
@@ -55,10 +57,11 @@ void WebViewHost::SetupMessageBridge()
                     std::wstring received(message);
                     CoTaskMemFree(message);
 
-                    std::wstring response = received;
-                    CharUpperBuffW(&response[0], (DWORD)response.size());
+                    std::string requestUtf8 = WideToUtf8(received);
+                    std::string responseUtf8 = ToolRegistry::Instance().Handle(requestUtf8);
+                    std::wstring responseWide = Utf8ToWide(responseUtf8);
 
-                    m_webview->PostWebMessageAsString(response.c_str());
+                    m_webview->PostWebMessageAsString(responseWide.c_str());
                 }
                 return S_OK;
             }).Get(), &token);
