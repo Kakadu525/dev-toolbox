@@ -1,7 +1,6 @@
 #include "WebViewHost.h"
 #include <shlwapi.h>
 #include <string>
-#include <cwctype>
 #pragma comment(lib, "shlwapi.lib")
 
 using namespace Microsoft::WRL;
@@ -56,9 +55,8 @@ void WebViewHost::SetupMessageBridge()
                     std::wstring received(message);
                     CoTaskMemFree(message);
 
-                    // Временный echo-тест: переводим в верхний регистр и отправляем обратно
                     std::wstring response = received;
-                    for (auto& c : response) c = towupper(c);
+                    CharUpperBuffW(&response[0], (DWORD)response.size());
 
                     m_webview->PostWebMessageAsString(response.c_str());
                 }
