@@ -6,11 +6,26 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Dev Toolbox — тест моста</h1>
-  <input type="text" id="input" placeholder="Напиши что-нибудь">
-  <button onclick="sendMessage()">Отправить в C++</button>
-  <p>Ответ от C++: <span id="output">—</span></p>
+  <div class="layout">
+    <nav class="sidebar">
+      <div class="sidebar-item active" data-tool="base64">Base64</div>
+      <!-- сюда будут добавляться новые инструменты -->
+    </nav>
+    <main class="content">
+      <section id="tool-base64" class="tool-panel active">
+        <h2>Base64</h2>
+        <textarea id="base64-input" placeholder="Введите текст"></textarea>
+        <div class="actions">
+          <button onclick="Base64Tool.encode()">Encode</button>
+          <button onclick="Base64Tool.decode()">Decode</button>
+        </div>
+        <textarea id="base64-output" placeholder="Результат" readonly></textarea>
+      </section>
+    </main>
+  </div>
 
+  <script src="bridge.js"></script>
+  <script src="tools/base64.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
