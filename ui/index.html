@@ -11,6 +11,7 @@
       <div class="sidebar-item active" data-tool="base64">Base64</div>
       <div class="sidebar-item" data-tool="hash">Hash Calculator</div>
       <div class="sidebar-item" data-tool="uuid">UUID Generator</div>
+      <div class="sidebar-item" data-tool="json">JSON Formatter</div>
       <!-- сюда будут добавляться новые инструменты -->
     </nav>
     <main class="content">
@@ -41,6 +42,16 @@
         </div>
         <textarea id="uuid-output" placeholder="Результат" readonly></textarea>
       </section>
+
+      <section id="tool-json" class="tool-panel">
+        <h2>JSON Formatter</h2>
+        <textarea id="json-input" placeholder='Например: {"name":"Иван","age":30}'></textarea>
+        <div class="actions">
+          <button onclick="JsonTool.pretty()">Pretty Print</button>
+          <button onclick="JsonTool.minify()">Minify</button>
+        </div>
+        <textarea id="json-output" placeholder="Результат" readonly></textarea>
+      </section>
     </main>
   </div>
 
@@ -48,6 +59,7 @@
   <script src="tools/base64.js"></script>
   <script src="tools/hash.js"></script>
   <script src="tools/uuid.js"></script>
+  <script src="tools/json.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

@@ -38,6 +38,8 @@ add_executable(DevToolbox WIN32
     src/tools/HashTool.h
     src/tools/UuidTool.cpp
     src/tools/UuidTool.h
+    src/tools/JsonTool.cpp
+    src/tools/JsonTool.h
 )
 
 target_include_directories(DevToolbox PRIVATE

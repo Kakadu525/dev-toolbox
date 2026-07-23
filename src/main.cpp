@@ -5,6 +5,7 @@
 #include "tools/Base64Tool.h"
 #include "tools/HashTool.h"
 #include "tools/UuidTool.h"
+#include "tools/JsonTool.h"
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -15,6 +16,7 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int nCmdShow)
     ToolRegistry::Instance().Register("base64", std::make_unique<Base64Tool>());
     ToolRegistry::Instance().Register("hash", std::make_unique<HashTool>());
     ToolRegistry::Instance().Register("uuid", std::make_unique<UuidTool>());
+    ToolRegistry::Instance().Register("json", std::make_unique<JsonTool>());
 
     const wchar_t CLASS_NAME[] = L"DevToolboxWindowClass";
 
