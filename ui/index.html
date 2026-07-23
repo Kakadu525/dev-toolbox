@@ -9,7 +9,8 @@
   <div class="layout">
     <nav class="sidebar">
       <div class="sidebar-item active" data-tool="base64">Base64</div>
-      <!-- сюда будут добавляться новые инструменты -->
+      <div class="sidebar-item" data-tool="hash">Hash Calculator</div>
+      <!-- Здесь будут новые инструменты -->
     </nav>
     <main class="content">
       <section id="tool-base64" class="tool-panel active">
@@ -21,11 +22,22 @@
         </div>
         <textarea id="base64-output" placeholder="Результат" readonly></textarea>
       </section>
+
+      <section id="tool-hash" class="tool-panel">
+        <h2>Hash Calculator</h2>
+        <textarea id="hash-input" placeholder="Введите текст"></textarea>
+        <div class="actions">
+          <button onclick="HashTool.md5()">MD5</button>
+          <button onclick="HashTool.sha256()">SHA256</button>
+        </div>
+        <textarea id="hash-output" placeholder="Результат" readonly></textarea>
+      </section>
     </main>
   </div>
 
   <script src="bridge.js"></script>
   <script src="tools/base64.js"></script>
+  <script src="tools/hash.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

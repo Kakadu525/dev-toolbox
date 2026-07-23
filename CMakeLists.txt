@@ -34,6 +34,8 @@ add_executable(DevToolbox WIN32
     src/tools/ITool.h
     src/tools/Base64Tool.cpp
     src/tools/Base64Tool.h
+    src/tools/HashTool.cpp
+    src/tools/HashTool.h
 )
 
 target_include_directories(DevToolbox PRIVATE
@@ -43,6 +45,7 @@ target_include_directories(DevToolbox PRIVATE
 target_link_libraries(DevToolbox PRIVATE
     ${WEBVIEW2_DIR}/build/native/x64/WebView2LoaderStatic.lib
     nlohmann_json::nlohmann_json
+    bcrypt.lib
 )
 
 target_compile_definitions(DevToolbox PRIVATE UNICODE _UNICODE)
