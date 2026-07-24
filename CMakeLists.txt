@@ -74,6 +74,10 @@ add_executable(DevToolbox WIN32
     src/tools/RegexTool.h
     src/tools/DiffTool.cpp
     src/tools/DiffTool.h
+    src/tools/DiffTool.cpp
+    src/tools/DiffTool.h
+    src/tools/ColorTool.cpp
+    src/tools/ColorTool.h
 )
 
 target_include_directories(DevToolbox PRIVATE

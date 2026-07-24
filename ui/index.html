@@ -17,6 +17,7 @@
 	  <div class="sidebar-item" data-tool="jwt">JWT Decoder</div>
 	  <div class="sidebar-item" data-tool="regex">Regex Tester</div>
 	  <div class="sidebar-item" data-tool="diff">Diff Viewer</div>
+	  <div class="sidebar-item" data-tool="color">Color Picker</div>
       <!-- сюда будут добавляться новые инструменты -->
     </nav>
     <main class="content">
@@ -107,6 +108,18 @@
         </div>
         <div id="diff-output" class="diff-container"></div>
       </section>
+	  
+	  <section id="tool-color" class="tool-panel">
+        <h2>Color Picker</h2>
+        <input type="text" id="color-input" placeholder="Например: #ff5733" style="width: 300px; padding: 8px; margin-bottom: 12px; background: #2d2d30; color: white; border: 1px solid #3c3c3c;">
+        <div class="actions">
+          <button onclick="ColorTool.convert()">Convert</button>
+        </div>
+        <div style="display: flex; gap: 16px; align-items: center;">
+          <div id="color-preview" style="width: 80px; height: 80px; border: 1px solid #3c3c3c; border-radius: 4px;"></div>
+          <div id="color-output" style="font-family: monospace;"></div>
+        </div>
+      </section>
     </main>
   </div>
 
@@ -120,6 +133,7 @@
   <script src="tools/jwt.js"></script>
   <script src="tools/regex.js"></script>
   <script src="tools/diff.js"></script>
+  <script src="tools/color.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

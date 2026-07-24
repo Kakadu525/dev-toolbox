@@ -11,6 +11,7 @@
 #include "tools/JwtTool.h"
 #include "tools/RegexTool.h"
 #include "tools/DiffTool.h"
+#include "tools/ColorTool.h"
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -27,6 +28,7 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int nCmdShow)
     ToolRegistry::Instance().Register("jwt", std::make_unique<JwtTool>());
     ToolRegistry::Instance().Register("regex", std::make_unique<RegexTool>());
     ToolRegistry::Instance().Register("diff", std::make_unique<DiffTool>());
+    ToolRegistry::Instance().Register("color", std::make_unique<ColorTool>());
 
     const wchar_t CLASS_NAME[] = L"DevToolboxWindowClass";
 
