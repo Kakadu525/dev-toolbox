@@ -64,6 +64,8 @@ add_executable(DevToolbox WIN32
     src/tools/XmlTool.h
     src/tools/YamlTool.cpp
     src/tools/YamlTool.h
+    src/tools/JwtTool.cpp
+    src/tools/JwtTool.h
 )
 
 target_include_directories(DevToolbox PRIVATE

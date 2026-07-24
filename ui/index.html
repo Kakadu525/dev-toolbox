@@ -14,6 +14,7 @@
       <div class="sidebar-item" data-tool="json">JSON Formatter</div>
 	  <div class="sidebar-item" data-tool="xml">XML Formatter</div>
 	  <div class="sidebar-item" data-tool="yaml">YAML Formatter</div>
+	  <div class="sidebar-item" data-tool="jwt">JWT Decoder</div>
       <!-- сюда будут добавляться новые инструменты -->
     </nav>
     <main class="content">
@@ -73,6 +74,15 @@
         </div>
         <textarea id="yaml-output" placeholder="Результат" readonly></textarea>
       </section>
+	  
+	  <section id="tool-jwt" class="tool-panel">
+        <h2>JWT Decoder</h2>
+        <textarea id="jwt-input" placeholder="Вставьте JWT токен"></textarea>
+        <div class="actions">
+          <button onclick="JwtTool.decode()">Decode</button>
+        </div>
+        <textarea id="jwt-output" placeholder="Результат" readonly></textarea>
+      </section>
     </main>
   </div>
 
@@ -83,6 +93,7 @@
   <script src="tools/json.js"></script>
   <script src="tools/xml.js"></script>
   <script src="tools/yaml.js"></script>
+  <script src="tools/jwt.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
