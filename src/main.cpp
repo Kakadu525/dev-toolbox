@@ -7,6 +7,7 @@
 #include "tools/UuidTool.h"
 #include "tools/JsonTool.h"
 #include "tools/XmlTool.h"
+#include "tools/YamlTool.h"
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -19,6 +20,7 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int nCmdShow)
     ToolRegistry::Instance().Register("uuid", std::make_unique<UuidTool>());
     ToolRegistry::Instance().Register("json", std::make_unique<JsonTool>());
     ToolRegistry::Instance().Register("xml", std::make_unique<XmlTool>());
+    ToolRegistry::Instance().Register("yaml", std::make_unique<YamlTool>());
 
     const wchar_t CLASS_NAME[] = L"DevToolboxWindowClass";
 

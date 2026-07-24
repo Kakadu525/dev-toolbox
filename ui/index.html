@@ -13,6 +13,7 @@
       <div class="sidebar-item" data-tool="uuid">UUID Generator</div>
       <div class="sidebar-item" data-tool="json">JSON Formatter</div>
 	  <div class="sidebar-item" data-tool="xml">XML Formatter</div>
+	  <div class="sidebar-item" data-tool="yaml">YAML Formatter</div>
       <!-- сюда будут добавляться новые инструменты -->
     </nav>
     <main class="content">
@@ -63,6 +64,15 @@
         </div>
         <textarea id="xml-output" placeholder="Результат" readonly></textarea>
       </section>
+	  
+	  <section id="tool-yaml" class="tool-panel">
+        <h2>YAML Formatter</h2>
+        <textarea id="yaml-input" placeholder="Например: name: Иван&#10;age: 30"></textarea>
+        <div class="actions">
+          <button onclick="YamlTool.format()">Format</button>
+        </div>
+        <textarea id="yaml-output" placeholder="Результат" readonly></textarea>
+      </section>
     </main>
   </div>
 
@@ -72,6 +82,7 @@
   <script src="tools/uuid.js"></script>
   <script src="tools/json.js"></script>
   <script src="tools/xml.js"></script>
+  <script src="tools/yaml.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
