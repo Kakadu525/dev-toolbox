@@ -77,3 +77,32 @@ button {
 button:hover {
   background: #1177bb;
 }
+
+.diff-container {
+  background: #2d2d30;
+  border: 1px solid #3c3c3c;
+  padding: 8px;
+  font-family: monospace;
+  font-size: 13px;
+  white-space: pre-wrap;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.diff-line {
+  padding: 2px 4px;
+}
+
+.diff-same {
+  color: #cccccc;
+}
+
+.diff-added {
+  background: #1e3a1e;
+  color: #4caf50;
+}
+
+.diff-removed {
+  background: #3a1e1e;
+  color: #f44336;
+}
