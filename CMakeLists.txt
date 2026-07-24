@@ -86,6 +86,10 @@ add_executable(DevToolbox WIN32
     src/tools/CronTool.h
     src/tools/SqlTool.cpp
     src/tools/SqlTool.h
+    src/tools/SqlTool.cpp
+    src/tools/SqlTool.h
+    src/tools/CurlTool.cpp
+    src/tools/CurlTool.h
 )
 
 target_include_directories(DevToolbox PRIVATE

@@ -20,6 +20,7 @@
 	  <div class="sidebar-item" data-tool="color">Color Picker</div>
 	  <div class="sidebar-item" data-tool="cron">Cron Parser</div>
 	  <div class="sidebar-item" data-tool="sql">SQL Formatter</div>
+	  <div class="sidebar-item" data-tool="curl">cURL Generator</div>
       <!-- сюда будут добавляться новые инструменты -->
     </nav>
     <main class="content">
@@ -140,6 +141,31 @@
         </div>
         <textarea id="sql-output" placeholder="Результат" readonly></textarea>
       </section>
+	  
+	  <section id="tool-curl" class="tool-panel">
+        <h2>cURL Generator</h2>
+
+        <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+          <select id="curl-method" style="padding: 8px; background: #2d2d30; color: white; border: 1px solid #3c3c3c;">
+            <option>GET</option>
+            <option>POST</option>
+            <option>PUT</option>
+            <option>PATCH</option>
+            <option>DELETE</option>
+          </select>
+          <input type="text" id="curl-url" placeholder="https://api.example.com/users" style="flex: 1; padding: 8px; background: #2d2d30; color: white; border: 1px solid #3c3c3c;">
+        </div>
+
+        <div id="curl-headers" style="margin-bottom: 8px;"></div>
+        <button onclick="CurlTool.addHeader()" style="margin-bottom: 12px; background: #3c3c3c;">+ Header</button>
+
+        <textarea id="curl-body" placeholder="Тело запроса (JSON и т.д.), необязательно"></textarea>
+
+        <div class="actions">
+          <button onclick="CurlTool.generate()">Generate</button>
+        </div>
+        <textarea id="curl-output" placeholder="Результат" readonly></textarea>
+      </section>
     </main>
   </div>
 
@@ -156,6 +182,7 @@
   <script src="tools/color.js"></script>
   <script src="tools/cron.js"></script>
   <script src="tools/sql.js"></script>
+  <script src="tools/curl.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
