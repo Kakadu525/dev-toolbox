@@ -18,6 +18,8 @@
 	  <div class="sidebar-item" data-tool="regex">Regex Tester</div>
 	  <div class="sidebar-item" data-tool="diff">Diff Viewer</div>
 	  <div class="sidebar-item" data-tool="color">Color Picker</div>
+	  <div class="sidebar-item" data-tool="cron">Cron Parser</div>
+	  <div class="sidebar-item" data-tool="sql">SQL Formatter</div>
       <!-- сюда будут добавляться новые инструменты -->
     </nav>
     <main class="content">
@@ -120,6 +122,24 @@
           <div id="color-output" style="font-family: monospace;"></div>
         </div>
       </section>
+	  
+	  <section id="tool-cron" class="tool-panel">
+        <h2>Cron Parser</h2>
+        <input type="text" id="cron-input" placeholder="Например: */5 9-17 * * 1-5" style="width: 300px; padding: 8px; margin-bottom: 12px; background: #2d2d30; color: white; border: 1px solid #3c3c3c;">
+        <div class="actions">
+          <button onclick="CronTool.parse()">Parse</button>
+        </div>
+        <div id="cron-output" style="font-family: monospace; background: #2d2d30; padding: 12px; border: 1px solid #3c3c3c;"></div>
+      </section>
+	  
+	  <section id="tool-sql" class="tool-panel">
+        <h2>SQL Formatter</h2>
+        <textarea id="sql-input" placeholder="Например: select id,name from users where age>18 and city='Moscow'"></textarea>
+        <div class="actions">
+          <button onclick="SqlTool.format()">Format</button>
+        </div>
+        <textarea id="sql-output" placeholder="Результат" readonly></textarea>
+      </section>
     </main>
   </div>
 
@@ -134,6 +154,8 @@
   <script src="tools/regex.js"></script>
   <script src="tools/diff.js"></script>
   <script src="tools/color.js"></script>
+  <script src="tools/cron.js"></script>
+  <script src="tools/sql.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

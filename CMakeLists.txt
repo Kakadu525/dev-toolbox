@@ -78,6 +78,14 @@ add_executable(DevToolbox WIN32
     src/tools/DiffTool.h
     src/tools/ColorTool.cpp
     src/tools/ColorTool.h
+    src/tools/ColorTool.cpp
+    src/tools/ColorTool.h
+    src/tools/CronTool.cpp
+    src/tools/CronTool.h
+    src/tools/CronTool.cpp
+    src/tools/CronTool.h
+    src/tools/SqlTool.cpp
+    src/tools/SqlTool.h
 )
 
 target_include_directories(DevToolbox PRIVATE

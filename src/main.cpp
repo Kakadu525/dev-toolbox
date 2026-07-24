@@ -12,6 +12,8 @@
 #include "tools/RegexTool.h"
 #include "tools/DiffTool.h"
 #include "tools/ColorTool.h"
+#include "tools/CronTool.h"
+#include "tools/SqlTool.h"
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -29,6 +31,8 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int nCmdShow)
     ToolRegistry::Instance().Register("regex", std::make_unique<RegexTool>());
     ToolRegistry::Instance().Register("diff", std::make_unique<DiffTool>());
     ToolRegistry::Instance().Register("color", std::make_unique<ColorTool>());
+    ToolRegistry::Instance().Register("cron", std::make_unique<CronTool>());
+    ToolRegistry::Instance().Register("sql", std::make_unique<SqlTool>());
 
     const wchar_t CLASS_NAME[] = L"DevToolboxWindowClass";
 
