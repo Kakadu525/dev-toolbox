@@ -15,6 +15,7 @@
 	  <div class="sidebar-item" data-tool="xml">XML Formatter</div>
 	  <div class="sidebar-item" data-tool="yaml">YAML Formatter</div>
 	  <div class="sidebar-item" data-tool="jwt">JWT Decoder</div>
+	  <div class="sidebar-item" data-tool="regex">Regex Tester</div>
       <!-- сюда будут добавляться новые инструменты -->
     </nav>
     <main class="content">
@@ -83,6 +84,16 @@
         </div>
         <textarea id="jwt-output" placeholder="Результат" readonly></textarea>
       </section>
+	  
+	  <section id="tool-regex" class="tool-panel">
+        <h2>Regex Tester</h2>
+        <input type="text" id="regex-pattern" placeholder="Паттерн, например: \d+" style="width: 100%; padding: 8px; margin-bottom: 12px; background: #2d2d30; color: white; border: 1px solid #3c3c3c;">
+        <textarea id="regex-text" placeholder="Тестовый текст"></textarea>
+        <div class="actions">
+          <button onclick="RegexTool.test()">Test</button>
+        </div>
+        <textarea id="regex-output" placeholder="Результат" readonly></textarea>
+      </section>
     </main>
   </div>
 
@@ -94,6 +105,7 @@
   <script src="tools/xml.js"></script>
   <script src="tools/yaml.js"></script>
   <script src="tools/jwt.js"></script>
+  <script src="tools/regex.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

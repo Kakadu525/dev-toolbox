@@ -66,6 +66,10 @@ add_executable(DevToolbox WIN32
     src/tools/YamlTool.h
     src/tools/JwtTool.cpp
     src/tools/JwtTool.h
+    src/tools/JwtTool.cpp
+    src/tools/JwtTool.h
+    src/tools/RegexTool.cpp
+    src/tools/RegexTool.h
 )
 
 target_include_directories(DevToolbox PRIVATE
