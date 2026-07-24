@@ -88,6 +88,8 @@ add_executable(DevToolbox WIN32
     src/tools/QrTool.cpp
     src/tools/QrTool.h
     ${qrcodegen_SOURCE_DIR}/cpp/qrcodegen.cpp
+    src/tools/HttpTool.cpp
+    src/tools/HttpTool.h
 )
 
 target_include_directories(DevToolbox PRIVATE
@@ -102,6 +104,7 @@ target_link_libraries(DevToolbox PRIVATE
     rpcrt4.lib
     pugixml
     yaml-cpp::yaml-cpp
+    winhttp.lib
 )
 
 target_compile_definitions(DevToolbox PRIVATE UNICODE _UNICODE)

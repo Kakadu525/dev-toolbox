@@ -16,6 +16,7 @@
 #include "tools/SqlTool.h"
 #include "tools/CurlTool.h"
 #include "tools/QrTool.h"
+#include "tools/HttpTool.h"
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -37,6 +38,7 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int nCmdShow)
     ToolRegistry::Instance().Register("sql", std::make_unique<SqlTool>());
     ToolRegistry::Instance().Register("curl", std::make_unique<CurlTool>());
     ToolRegistry::Instance().Register("qr", std::make_unique<QrTool>());
+    ToolRegistry::Instance().Register("http", std::make_unique<HttpTool>());
 
     const wchar_t CLASS_NAME[] = L"DevToolboxWindowClass";
 

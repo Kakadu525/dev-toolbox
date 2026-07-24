@@ -22,6 +22,7 @@
 	  <div class="sidebar-item" data-tool="sql">SQL Formatter</div>
 	  <div class="sidebar-item" data-tool="curl">cURL Generator</div>
 	  <div class="sidebar-item" data-tool="qr">QR Generator</div>
+	  <div class="sidebar-item" data-tool="http">HTTP Client</div>
       <!-- сюда будут добавляться новые инструменты -->
     </nav>
     <main class="content">
@@ -189,6 +190,41 @@
 
         <div id="qr-output"></div>
       </section>
+	  
+	  <section id="tool-http" class="tool-panel">
+        <h2>HTTP Client</h2>
+
+        <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+          <select id="http-method" style="padding: 8px; background: #2d2d30; color: white; border: 1px solid #3c3c3c;">
+            <option>GET</option>
+            <option>POST</option>
+            <option>PUT</option>
+            <option>PATCH</option>
+            <option>DELETE</option>
+            <option>HEAD</option>
+          </select>
+          <input type="text" id="http-url" placeholder="https://api.example.com/users" style="flex: 1; padding: 8px; background: #2d2d30; color: white; border: 1px solid #3c3c3c;">
+          <button onclick="HttpTool.send()">Send</button>
+        </div>
+
+        <div id="http-headers" style="margin-bottom: 8px;"></div>
+        <button onclick="HttpTool.addHeader()" style="margin-bottom: 12px; background: #3c3c3c;">+ Header</button>
+
+        <textarea id="http-body" placeholder="Тело запроса (для POST/PUT/PATCH)"></textarea>
+
+        <div id="http-status" style="margin: 12px 0; font-family: monospace;"></div>
+
+        <div style="display: flex; gap: 12px;">
+          <div style="flex: 1;">
+            <h3 style="font-size: 14px; color: #aaa;">Response Headers</h3>
+            <textarea id="http-response-headers" readonly style="height: 200px;"></textarea>
+          </div>
+          <div style="flex: 1;">
+            <h3 style="font-size: 14px; color: #aaa;">Response Body</h3>
+            <textarea id="http-response-body" readonly style="height: 200px;"></textarea>
+          </div>
+        </div>
+      </section>
     </main>
   </div>
 
@@ -207,6 +243,7 @@
   <script src="tools/sql.js"></script>
   <script src="tools/curl.js"></script>
   <script src="tools/qr.js"></script>
+  <script src="tools/http.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
