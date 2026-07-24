@@ -44,6 +44,13 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(yaml-cpp)
 unset(CMAKE_POLICY_VERSION_MINIMUM)
 
+FetchContent_Declare(
+    qrcodegen
+    GIT_REPOSITORY https://github.com/nayuki/QR-Code-generator.git
+    GIT_TAG v1.8.0
+)
+FetchContent_MakeAvailable(qrcodegen)
+
 add_executable(DevToolbox WIN32
     src/main.cpp
     src/WebViewHost.cpp
@@ -66,34 +73,26 @@ add_executable(DevToolbox WIN32
     src/tools/YamlTool.h
     src/tools/JwtTool.cpp
     src/tools/JwtTool.h
-    src/tools/JwtTool.cpp
-    src/tools/JwtTool.h
-    src/tools/RegexTool.cpp
-    src/tools/RegexTool.h
     src/tools/RegexTool.cpp
     src/tools/RegexTool.h
     src/tools/DiffTool.cpp
     src/tools/DiffTool.h
-    src/tools/DiffTool.cpp
-    src/tools/DiffTool.h
-    src/tools/ColorTool.cpp
-    src/tools/ColorTool.h
     src/tools/ColorTool.cpp
     src/tools/ColorTool.h
     src/tools/CronTool.cpp
     src/tools/CronTool.h
-    src/tools/CronTool.cpp
-    src/tools/CronTool.h
-    src/tools/SqlTool.cpp
-    src/tools/SqlTool.h
     src/tools/SqlTool.cpp
     src/tools/SqlTool.h
     src/tools/CurlTool.cpp
     src/tools/CurlTool.h
+    src/tools/QrTool.cpp
+    src/tools/QrTool.h
+    ${qrcodegen_SOURCE_DIR}/cpp/qrcodegen.cpp
 )
 
 target_include_directories(DevToolbox PRIVATE
     ${WEBVIEW2_DIR}/build/native/include
+    ${qrcodegen_SOURCE_DIR}/cpp
 )
 
 target_link_libraries(DevToolbox PRIVATE

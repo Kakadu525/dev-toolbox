@@ -106,3 +106,11 @@ button:hover {
   background: #3a1e1e;
   color: #f44336;
 }
+
+#qr-output svg {
+  width: 260px;
+  height: 260px;
+  background: #ffffff;
+  padding: 8px;
+  border-radius: 4px;
+}

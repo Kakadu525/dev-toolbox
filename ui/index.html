@@ -21,6 +21,7 @@
 	  <div class="sidebar-item" data-tool="cron">Cron Parser</div>
 	  <div class="sidebar-item" data-tool="sql">SQL Formatter</div>
 	  <div class="sidebar-item" data-tool="curl">cURL Generator</div>
+	  <div class="sidebar-item" data-tool="qr">QR Generator</div>
       <!-- сюда будут добавляться новые инструменты -->
     </nav>
     <main class="content">
@@ -166,6 +167,28 @@
         </div>
         <textarea id="curl-output" placeholder="Результат" readonly></textarea>
       </section>
+	  
+	  <section id="tool-qr" class="tool-panel">
+        <h2>QR Generator</h2>
+
+        <textarea id="qr-text" placeholder="Текст или URL для кодирования"></textarea>
+
+        <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 12px;">
+          <label>Уровень коррекции ошибок:</label>
+          <select id="qr-ecc" style="padding: 6px; background: #2d2d30; color: white; border: 1px solid #3c3c3c;">
+            <option value="LOW">Low (7%)</option>
+            <option value="MEDIUM" selected>Medium (15%)</option>
+            <option value="QUARTILE">Quartile (25%)</option>
+            <option value="HIGH">High (30%)</option>
+          </select>
+        </div>
+
+        <div class="actions">
+          <button onclick="QrTool.generate()">Generate</button>
+        </div>
+
+        <div id="qr-output"></div>
+      </section>
     </main>
   </div>
 
@@ -183,6 +206,7 @@
   <script src="tools/cron.js"></script>
   <script src="tools/sql.js"></script>
   <script src="tools/curl.js"></script>
+  <script src="tools/qr.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
