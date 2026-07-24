@@ -23,6 +23,7 @@
 	  <div class="sidebar-item" data-tool="curl">cURL Generator</div>
 	  <div class="sidebar-item" data-tool="qr">QR Generator</div>
 	  <div class="sidebar-item" data-tool="http">HTTP Client</div>
+	  <div class="sidebar-item" data-tool="image">Image Converter</div>
       <!-- сюда будут добавляться новые инструменты -->
     </nav>
     <main class="content">
@@ -225,6 +226,34 @@
           </div>
         </div>
       </section>
+	  
+	  <section id="tool-image" class="tool-panel">
+        <h2>Image Converter</h2>
+
+        <input type="file" accept="image/*" onchange="ImageTool.onFileSelected(this)" style="margin-bottom: 12px; color: white;">
+
+        <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 12px; flex-wrap: wrap;">
+          <label>Формат:
+            <select id="image-format" style="padding: 6px; background: #2d2d30; color: white; border: 1px solid #3c3c3c;">
+              <option value="png">PNG</option>
+              <option value="jpeg">JPEG</option>
+              <option value="bmp">BMP</option>
+            </select>
+          </label>
+          <label>Качество (JPEG): <input type="number" id="image-quality" value="90" min="1" max="100" style="width: 60px; padding: 6px; background: #2d2d30; color: white; border: 1px solid #3c3c3c;"></label>
+          <label>Ширина: <input type="number" id="image-width" placeholder="авто" style="width: 80px; padding: 6px; background: #2d2d30; color: white; border: 1px solid #3c3c3c;"></label>
+          <label>Высота: <input type="number" id="image-height" placeholder="авто" style="width: 80px; padding: 6px; background: #2d2d30; color: white; border: 1px solid #3c3c3c;"></label>
+        </div>
+
+        <div class="actions">
+          <button onclick="ImageTool.convert()">Convert</button>
+          <a id="image-download" style="display: none; color: #4fc3f7; margin-left: 12px;">Скачать результат</a>
+        </div>
+
+        <div id="image-status" style="margin: 12px 0; color: #aaa;"></div>
+
+        <img id="image-preview" style="display: none; max-width: 100%; max-height: 400px; border: 1px solid #3c3c3c; border-radius: 4px;">
+      </section>
     </main>
   </div>
 
@@ -244,6 +273,7 @@
   <script src="tools/curl.js"></script>
   <script src="tools/qr.js"></script>
   <script src="tools/http.js"></script>
+  <script src="tools/image.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

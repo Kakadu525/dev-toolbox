@@ -51,6 +51,13 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(qrcodegen)
 
+FetchContent_Declare(
+    stb
+    GIT_REPOSITORY https://github.com/nothings/stb.git
+    GIT_TAG master
+)
+FetchContent_MakeAvailable(stb)
+
 add_executable(DevToolbox WIN32
     src/main.cpp
     src/WebViewHost.cpp
@@ -58,6 +65,7 @@ add_executable(DevToolbox WIN32
     src/ToolRegistry.cpp
     src/ToolRegistry.h
     src/StringUtil.h
+    src/StbImpl.cpp
     src/tools/ITool.h
     src/tools/Base64Tool.cpp
     src/tools/Base64Tool.h
@@ -90,11 +98,14 @@ add_executable(DevToolbox WIN32
     ${qrcodegen_SOURCE_DIR}/cpp/qrcodegen.cpp
     src/tools/HttpTool.cpp
     src/tools/HttpTool.h
+    src/tools/ImageTool.cpp
+    src/tools/ImageTool.h
 )
 
 target_include_directories(DevToolbox PRIVATE
     ${WEBVIEW2_DIR}/build/native/include
     ${qrcodegen_SOURCE_DIR}/cpp
+    ${stb_SOURCE_DIR}
 )
 
 target_link_libraries(DevToolbox PRIVATE
