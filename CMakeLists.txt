@@ -31,6 +31,19 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(pugixml)
 
+set(YAML_CPP_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(YAML_CPP_BUILD_TOOLS OFF CACHE BOOL "" FORCE)
+set(YAML_CPP_BUILD_CONTRIB OFF CACHE BOOL "" FORCE)
+set(YAML_BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
+set(CMAKE_POLICY_VERSION_MINIMUM 3.5)
+FetchContent_Declare(
+    yaml-cpp
+    GIT_REPOSITORY https://github.com/jbeder/yaml-cpp.git
+    GIT_TAG 0.8.0
+)
+FetchContent_MakeAvailable(yaml-cpp)
+unset(CMAKE_POLICY_VERSION_MINIMUM)
+
 add_executable(DevToolbox WIN32
     src/main.cpp
     src/WebViewHost.cpp
@@ -49,6 +62,8 @@ add_executable(DevToolbox WIN32
     src/tools/JsonTool.h
     src/tools/XmlTool.cpp
     src/tools/XmlTool.h
+    src/tools/YamlTool.cpp
+    src/tools/YamlTool.h
 )
 
 target_include_directories(DevToolbox PRIVATE
@@ -61,6 +76,7 @@ target_link_libraries(DevToolbox PRIVATE
     bcrypt.lib
     rpcrt4.lib
     pugixml
+    yaml-cpp::yaml-cpp
 )
 
 target_compile_definitions(DevToolbox PRIVATE UNICODE _UNICODE)
