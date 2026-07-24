@@ -12,6 +12,7 @@
       <div class="sidebar-item" data-tool="hash">Hash Calculator</div>
       <div class="sidebar-item" data-tool="uuid">UUID Generator</div>
       <div class="sidebar-item" data-tool="json">JSON Formatter</div>
+	  <div class="sidebar-item" data-tool="xml">XML Formatter</div>
       <!-- сюда будут добавляться новые инструменты -->
     </nav>
     <main class="content">
@@ -52,6 +53,16 @@
         </div>
         <textarea id="json-output" placeholder="Результат" readonly></textarea>
       </section>
+	  
+	  <section id="tool-xml" class="tool-panel">
+        <h2>XML Formatter</h2>
+        <textarea id="xml-input" placeholder="Например: <root><name>Иван</name></root>"></textarea>
+        <div class="actions">
+          <button onclick="XmlTool.pretty()">Pretty Print</button>
+          <button onclick="XmlTool.minify()">Minify</button>
+        </div>
+        <textarea id="xml-output" placeholder="Результат" readonly></textarea>
+      </section>
     </main>
   </div>
 
@@ -60,6 +71,7 @@
   <script src="tools/hash.js"></script>
   <script src="tools/uuid.js"></script>
   <script src="tools/json.js"></script>
+  <script src="tools/xml.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

@@ -24,6 +24,13 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(nlohmann_json)
 
+FetchContent_Declare(
+    pugixml
+    GIT_REPOSITORY https://github.com/zeux/pugixml.git
+    GIT_TAG v1.14
+)
+FetchContent_MakeAvailable(pugixml)
+
 add_executable(DevToolbox WIN32
     src/main.cpp
     src/WebViewHost.cpp
@@ -40,6 +47,8 @@ add_executable(DevToolbox WIN32
     src/tools/UuidTool.h
     src/tools/JsonTool.cpp
     src/tools/JsonTool.h
+    src/tools/XmlTool.cpp
+    src/tools/XmlTool.h
 )
 
 target_include_directories(DevToolbox PRIVATE
@@ -51,6 +60,7 @@ target_link_libraries(DevToolbox PRIVATE
     nlohmann_json::nlohmann_json
     bcrypt.lib
     rpcrt4.lib
+    pugixml
 )
 
 target_compile_definitions(DevToolbox PRIVATE UNICODE _UNICODE)
