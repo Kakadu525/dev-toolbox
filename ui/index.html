@@ -25,6 +25,7 @@
 	  <div class="sidebar-item" data-tool="http">HTTP Client</div>
 	  <div class="sidebar-item" data-tool="image">Image Converter</div>
 	  <div class="sidebar-item" data-tool="log">Log Viewer</div>
+	  <div class="sidebar-item" data-tool="process">Process Explorer</div>
       <!-- сюда будут добавляться новые инструменты -->
     </nav>
     <main class="content">
@@ -270,6 +271,33 @@
 
         <pre id="log-output" style="background: #1a1a1a; border: 1px solid #3c3c3c; padding: 12px; height: 400px; overflow-y: auto; font-family: monospace; font-size: 12px; white-space: pre-wrap; margin: 0;"></pre>
       </section>
+	  
+	  <section id="tool-process" class="tool-panel">
+        <h2>Process Explorer</h2>
+
+        <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 12px;">
+          <button onclick="ProcessTool.refresh()">Refresh</button>
+          <input type="text" id="process-filter" placeholder="Фильтр по имени" oninput="ProcessTool.render()" style="padding: 8px; background: #2d2d30; color: white; border: 1px solid #3c3c3c;">
+        </div>
+
+        <div id="process-status" style="color: #aaa; margin-bottom: 8px;"></div>
+
+        <div class="process-table-container">
+          <table>
+            <thead>
+              <tr>
+                <th data-sort="pid" onclick="ProcessTool.setSort('pid')">PID<span class="sort-indicator"></span></th>
+                <th data-sort="name" onclick="ProcessTool.setSort('name')">Имя<span class="sort-indicator"></span></th>
+                <th data-sort="memoryBytes" onclick="ProcessTool.setSort('memoryBytes')">Память<span class="sort-indicator"></span></th>
+                <th data-sort="threads" onclick="ProcessTool.setSort('threads')">Потоки<span class="sort-indicator"></span></th>
+                <th data-sort="path" onclick="ProcessTool.setSort('path')">Путь<span class="sort-indicator"></span></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="process-tbody"></tbody>
+          </table>
+        </div>
+      </section>
     </main>
   </div>
 
@@ -291,6 +319,7 @@
   <script src="tools/http.js"></script>
   <script src="tools/image.js"></script>
   <script src="tools/log.js"></script>
+  <script src="tools/process.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

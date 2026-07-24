@@ -114,3 +114,74 @@ button:hover {
   padding: 8px;
   border-radius: 4px;
 }
+
+.process-table-container {
+  max-height: 550px;
+  overflow-y: auto;
+  border: 1px solid #3c3c3c;
+  border-radius: 6px;
+}
+
+#tool-process table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+#tool-process thead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+#tool-process th {
+  background: #2d2d30;
+  text-align: left;
+  padding: 10px 12px;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  border-bottom: 2px solid #3c3c3c;
+}
+
+#tool-process th:hover {
+  background: #37373d;
+}
+
+.sort-indicator {
+  color: #4fc3f7;
+  font-size: 10px;
+}
+
+#tool-process td {
+  padding: 8px 12px;
+  border-bottom: 1px solid #2d2d30;
+}
+
+#tool-process tbody tr:nth-child(even) {
+  background: #232326;
+}
+
+#tool-process tbody tr:hover {
+  background: #2a2d3a;
+}
+
+.process-path {
+  font-size: 11px;
+  color: #888;
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.process-kill-btn {
+  padding: 4px 10px;
+  font-size: 12px;
+  background: #a83232;
+  border-radius: 4px;
+}
+
+.process-kill-btn:hover {
+  background: #c73e3e;
+}

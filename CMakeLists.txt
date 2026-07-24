@@ -102,6 +102,8 @@ add_executable(DevToolbox WIN32
     src/tools/ImageTool.h
     src/tools/LogTool.cpp
     src/tools/LogTool.h
+    src/tools/ProcessTool.cpp
+    src/tools/ProcessTool.h
 )
 
 target_include_directories(DevToolbox PRIVATE
@@ -119,9 +121,14 @@ target_link_libraries(DevToolbox PRIVATE
     yaml-cpp::yaml-cpp
     winhttp.lib
     comdlg32.lib
+    psapi.lib
 )
 
 target_compile_definitions(DevToolbox PRIVATE UNICODE _UNICODE)
+
+set_target_properties(DevToolbox PROPERTIES
+    LINK_FLAGS "/MANIFESTUAC:\"level='requireAdministrator' uiAccess='false'\""
+)
 
 add_custom_command(TARGET DevToolbox POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
