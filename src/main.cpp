@@ -18,6 +18,7 @@
 #include "tools/QrTool.h"
 #include "tools/HttpTool.h"
 #include "tools/ImageTool.h"
+#include "tools/LogTool.h"
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -41,6 +42,11 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int nCmdShow)
     ToolRegistry::Instance().Register("qr", std::make_unique<QrTool>());
     ToolRegistry::Instance().Register("http", std::make_unique<HttpTool>());
     ToolRegistry::Instance().Register("image", std::make_unique<ImageTool>());
+
+    ToolRegistry::Instance().Register("log", std::make_unique<LogTool>(
+        [](const std::string& msg) {
+            ToolRegistry::Instance().GetPushCallback()(msg);
+        }));
 
     const wchar_t CLASS_NAME[] = L"DevToolboxWindowClass";
 
@@ -83,6 +89,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
     case WM_SIZE:
         if (g_webviewHost)
             g_webviewHost->ResizeToWindow(hwnd);
+        return 0;
+    case WM_APP_WEBVIEW_PUSH:
+        if (g_webviewHost)
+            g_webviewHost->HandleThreadSafeMessage(lParam);
         return 0;
     case WM_DESTROY:
         PostQuitMessage(0);

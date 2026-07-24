@@ -9,6 +9,8 @@ using namespace Microsoft::WRL;
 
 void WebViewHost::Initialize(HWND parentWindow)
 {
+    m_hwnd = parentWindow;
+
     CreateCoreWebView2EnvironmentWithOptions(nullptr, nullptr, nullptr,
         Callback<ICoreWebView2CreateCoreWebView2EnvironmentCompletedHandler>(
             [this, parentWindow](HRESULT result, ICoreWebView2Environment* env) -> HRESULT
@@ -28,6 +30,12 @@ void WebViewHost::Initialize(HWND parentWindow)
                             m_controller->put_Bounds(bounds);
 
                             SetupMessageBridge();
+
+                            ToolRegistry::Instance().SetPushCallback(
+                                [this](const std::string& utf8Message) {
+                                    std::wstring wideMessage = Utf8ToWide(utf8Message);
+                                    PostMessageToWebViewThreadSafe(wideMessage);
+                                });
 
                             wchar_t exePath[MAX_PATH];
                             GetModuleFileNameW(nullptr, exePath, MAX_PATH);
@@ -65,6 +73,29 @@ void WebViewHost::SetupMessageBridge()
                 }
                 return S_OK;
             }).Get(), &token);
+}
+
+void WebViewHost::PostMessageToWebView(const std::wstring& message)
+{
+    if (m_webview) {
+        m_webview->PostWebMessageAsString(message.c_str());
+    }
+}
+
+void WebViewHost::PostMessageToWebViewThreadSafe(const std::wstring& message)
+{
+
+    auto* heapMessage = new std::wstring(message);
+    ::PostMessageW(m_hwnd, WM_APP_WEBVIEW_PUSH, 0, reinterpret_cast<LPARAM>(heapMessage));
+}
+
+void WebViewHost::HandleThreadSafeMessage(LPARAM lParam)
+{
+    auto* heapMessage = reinterpret_cast<std::wstring*>(lParam);
+    if (heapMessage) {
+        PostMessageToWebView(*heapMessage);
+        delete heapMessage;
+    }
 }
 
 void WebViewHost::ResizeToWindow(HWND parentWindow)

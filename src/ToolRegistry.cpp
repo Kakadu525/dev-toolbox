@@ -12,6 +12,14 @@ void ToolRegistry::Register(const std::string& name, std::unique_ptr<ITool> tool
     m_tools[name] = std::move(tool);
 }
 
+void ToolRegistry::SetPushCallback(std::function<void(const std::string&)> callback) {
+    m_pushCallback = std::move(callback);
+}
+
+std::function<void(const std::string&)> ToolRegistry::GetPushCallback() const {
+    return m_pushCallback;
+}
+
 std::string ToolRegistry::Handle(const std::string& jsonMessage) {
     std::string toolName;
     try {

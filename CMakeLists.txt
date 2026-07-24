@@ -100,6 +100,8 @@ add_executable(DevToolbox WIN32
     src/tools/HttpTool.h
     src/tools/ImageTool.cpp
     src/tools/ImageTool.h
+    src/tools/LogTool.cpp
+    src/tools/LogTool.h
 )
 
 target_include_directories(DevToolbox PRIVATE
@@ -116,6 +118,7 @@ target_link_libraries(DevToolbox PRIVATE
     pugixml
     yaml-cpp::yaml-cpp
     winhttp.lib
+    comdlg32.lib
 )
 
 target_compile_definitions(DevToolbox PRIVATE UNICODE _UNICODE)
