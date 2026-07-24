@@ -70,6 +70,10 @@ add_executable(DevToolbox WIN32
     src/tools/JwtTool.h
     src/tools/RegexTool.cpp
     src/tools/RegexTool.h
+    src/tools/RegexTool.cpp
+    src/tools/RegexTool.h
+    src/tools/DiffTool.cpp
+    src/tools/DiffTool.h
 )
 
 target_include_directories(DevToolbox PRIVATE

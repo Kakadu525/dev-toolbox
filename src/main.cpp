@@ -10,6 +10,7 @@
 #include "tools/YamlTool.h"
 #include "tools/JwtTool.h"
 #include "tools/RegexTool.h"
+#include "tools/DiffTool.h"
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -25,6 +26,7 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int nCmdShow)
     ToolRegistry::Instance().Register("yaml", std::make_unique<YamlTool>());
     ToolRegistry::Instance().Register("jwt", std::make_unique<JwtTool>());
     ToolRegistry::Instance().Register("regex", std::make_unique<RegexTool>());
+    ToolRegistry::Instance().Register("diff", std::make_unique<DiffTool>());
 
     const wchar_t CLASS_NAME[] = L"DevToolboxWindowClass";
 
