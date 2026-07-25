@@ -51,6 +51,7 @@ namespace {
                 if (hProcess) {
                     PROCESS_MEMORY_COUNTERS_EX pmc = {};
                     if (GetProcessMemoryInfo(hProcess, (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc))) {
+                        memoryBytes = (long long)pmc.WorkingSetSize;
                         double mb = pmc.WorkingSetSize / (1024.0 * 1024.0);
                         char buf[32];
                         snprintf(buf, sizeof(buf), "%.1f MB", mb);

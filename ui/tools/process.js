@@ -27,7 +27,7 @@ const ProcessTool = {
     this.render();
   },
 
-  render() {
+render() {
     const filter = document.getElementById('process-filter').value.toLowerCase();
     const tbody = document.getElementById('process-tbody');
     tbody.innerHTML = '';
@@ -38,8 +38,18 @@ const ProcessTool = {
 
     const col = this.sortColumn;
     const dir = this.sortDirection === 'asc' ? 1 : -1;
+
     filtered.sort((a, b) => {
       let valA = a[col], valB = b[col];
+
+      if (col === 'memoryBytes') {
+        const aUnknown = valA === 0;
+        const bUnknown = valB === 0;
+        if (aUnknown && !bUnknown) return 1;
+        if (!aUnknown && bUnknown) return -1;
+        if (aUnknown && bUnknown) return 0;
+      }
+
       if (typeof valA === 'string') {
         return valA.localeCompare(valB) * dir;
       }
