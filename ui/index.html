@@ -242,70 +242,117 @@
         </section>
 
         <section id="tool-jwt" class="tool-panel">
-          <h2>JWT Decoder</h2>
-          <textarea id="jwt-input" placeholder="Вставьте JWT токен"></textarea>
-          <div class="actions">
-            <button onclick="clearFields('jwt-input', 'jwt-output')" class="btn-clear">Clear</button>
-            <button onclick="JwtTool.decode()">Decode</button>
+          <div class="tool-header">
+            <h1>JWT Decoder</h1>
+            <p>Decode JSON Web Tokens (header, payload, signature)</p>
           </div>
-          <textarea id="jwt-output" placeholder="Результат" readonly></textarea>
+          <div class="tool-body">
+            <span class="field-label">Token</span>
+            <textarea id="jwt-input" placeholder="Вставьте JWT токен"></textarea>
+            <div class="actions">
+              <button onclick="JwtTool.decode()">Decode</button>
+              <button onclick="clearFields('jwt-input', 'jwt-output')" class="btn-clear">Clear</button>
+            </div>
+            <span class="field-label">Decoded</span>
+            <textarea id="jwt-output" placeholder="Результат" readonly></textarea>
+          </div>
         </section>
 
         <section id="tool-regex" class="tool-panel">
-          <h2>Regex Tester</h2>
-          <input type="text" id="regex-pattern" placeholder="Паттерн, например: \d+" class="themed-input" style="width: 100%; margin-bottom: 12px;">
-          <textarea id="regex-text" placeholder="Тестовый текст"></textarea>
-          <div class="actions">
-            <button onclick="clearFields('regex-pattern', 'regex-text', 'regex-output')" class="btn-clear">Clear</button>
-            <button onclick="RegexTool.test()">Test</button>
+          <div class="tool-header">
+            <h1>Regex Tester</h1>
+            <p>Test regular expressions against sample text</p>
           </div>
-          <textarea id="regex-output" placeholder="Результат" readonly></textarea>
+          <div class="tool-body">
+            <span class="field-label">Pattern</span>
+            <input type="text" id="regex-pattern" placeholder="Например: \d+" class="themed-input" style="width: 100%; margin-bottom: 12px;">
+            <span class="field-label">Test string</span>
+            <textarea id="regex-text" placeholder="Тестовый текст"></textarea>
+            <div class="actions">
+              <button onclick="RegexTool.test()">Test</button>
+              <button onclick="clearFields('regex-pattern', 'regex-text', 'regex-output')" class="btn-clear">Clear</button>
+            </div>
+            <span class="field-label">Matches</span>
+            <textarea id="regex-output" placeholder="Результат" readonly></textarea>
+          </div>
         </section>
 
         <section id="tool-diff" class="tool-panel">
-          <h2>Diff Viewer</h2>
-          <div style="display: flex; gap: 12px;">
-            <textarea id="diff-text-a" placeholder="Текст A" style="flex: 1;"></textarea>
-            <textarea id="diff-text-b" placeholder="Текст B" style="flex: 1;"></textarea>
+          <div class="tool-header">
+            <h1>Diff Viewer</h1>
+            <p>Compare two texts line by line</p>
           </div>
-          <div class="actions">
-            <button onclick="clearFields('diff-text-a', 'diff-text-b', 'diff-output')" class="btn-clear">Clear</button>
-            <button onclick="DiffTool.compare()">Compare</button>
+          <div class="tool-body">
+            <div style="display: flex; gap: 12px;">
+              <div style="flex: 1;">
+                <span class="field-label">Text A</span>
+                <textarea id="diff-text-a" placeholder="Текст A"></textarea>
+              </div>
+              <div style="flex: 1;">
+                <span class="field-label">Text B</span>
+                <textarea id="diff-text-b" placeholder="Текст B"></textarea>
+              </div>
+            </div>
+            <div class="actions">
+              <button onclick="DiffTool.compare()">Compare</button>
+              <button onclick="clearFields('diff-text-a', 'diff-text-b', 'diff-output')" class="btn-clear">Clear</button>
+            </div>
+            <span class="field-label">Diff</span>
+            <div id="diff-output" class="diff-container"></div>
           </div>
-          <div id="diff-output" class="diff-container"></div>
         </section>
 
         <section id="tool-color" class="tool-panel">
-          <h2>Color Picker</h2>
-          <input type="text" id="color-input" placeholder="Например: #ff5733" class="themed-input" style="width: 300px; margin-bottom: 12px;">
-          <div class="actions">
-            <button onclick="clearFields('color-input', 'color-output')" class="btn-clear">Clear</button>
-            <button onclick="ColorTool.convert()">Convert</button>
+          <div class="tool-header">
+            <h1>Color Picker</h1>
+            <p>Convert colors between HEX, RGB and HSL</p>
           </div>
-          <div style="display: flex; gap: 16px; align-items: center;">
-            <div id="color-preview" style="width: 80px; height: 80px; border: 1px solid var(--border); border-radius: 4px;"></div>
-            <div id="color-output" style="font-family: 'JetBrains Mono', monospace;"></div>
+          <div class="tool-body">
+            <span class="field-label">HEX color</span>
+            <input type="text" id="color-input" placeholder="Например: #ff5733" class="themed-input" style="width: 300px; margin-bottom: 12px;">
+            <div class="actions">
+              <button onclick="ColorTool.convert()">Convert</button>
+              <button onclick="clearFields('color-input', 'color-output')" class="btn-clear">Clear</button>
+            </div>
+            <div style="display: flex; gap: 16px; align-items: center;">
+              <div id="color-preview" style="width: 80px; height: 80px; border: 1px solid var(--border); border-radius: 4px;"></div>
+              <div id="color-output" style="font-family: 'JetBrains Mono', monospace;"></div>
+            </div>
           </div>
         </section>
 
         <section id="tool-cron" class="tool-panel">
-          <h2>Cron Parser</h2>
-          <input type="text" id="cron-input" placeholder="Например: */5 9-17 * * 1-5" class="themed-input" style="width: 300px; margin-bottom: 12px;">
-          <div class="actions">
-            <button onclick="clearFields('cron-input', 'cron-output')" class="btn-clear">Clear</button>
-            <button onclick="CronTool.parse()">Parse</button>
+          <div class="tool-header">
+            <h1>Cron Parser</h1>
+            <p>Parse cron expressions and preview next run times</p>
           </div>
-          <div id="cron-output" class="themed-input" style="font-family: 'JetBrains Mono', monospace;"></div>
+          <div class="tool-body">
+            <span class="field-label">Cron expression</span>
+            <input type="text" id="cron-input" placeholder="Например: */5 9-17 * * 1-5" class="themed-input" style="width: 300px; margin-bottom: 12px;">
+            <div class="actions">
+              <button onclick="CronTool.parse()">Parse</button>
+              <button onclick="clearFields('cron-input', 'cron-output')" class="btn-clear">Clear</button>
+            </div>
+            <span class="field-label">Next runs</span>
+            <div id="cron-output" class="themed-input" style="font-family: 'JetBrains Mono', monospace;"></div>
+          </div>
         </section>
 
         <section id="tool-sql" class="tool-panel">
-          <h2>SQL Formatter</h2>
-          <textarea id="sql-input" placeholder="Например: select id,name from users where age>18 and city='Moscow'"></textarea>
-          <div class="actions">
-            <button onclick="clearFields('sql-input', 'sql-output')" class="btn-clear">Clear</button>
-            <button onclick="SqlTool.format()">Format</button>
+          <div class="tool-header">
+            <h1>SQL Formatter</h1>
+            <p>Format SQL queries with proper indentation</p>
           </div>
-          <textarea id="sql-output" placeholder="Результат" readonly></textarea>
+          <div class="tool-body">
+            <span class="field-label">Query</span>
+            <textarea id="sql-input" placeholder="Например: select id,name from users where age>18 and city='Moscow'"></textarea>
+            <div class="actions">
+              <button onclick="SqlTool.format()">Format</button>
+              <button onclick="clearFields('sql-input', 'sql-output')" class="btn-clear">Clear</button>
+            </div>
+            <span class="field-label">Formatted</span>
+            <textarea id="sql-output" placeholder="Результат" readonly></textarea>
+          </div>
         </section>
 
         <section id="tool-curl" class="tool-panel">
