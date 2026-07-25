@@ -18,7 +18,6 @@ namespace {
         return lines;
     }
 
-    // Классический LCS через динамическое программирование
     json ComputeDiff(const std::vector<std::string>& a, const std::vector<std::string>& b) {
         size_t n = a.size(), m = b.size();
         std::vector<std::vector<int>> dp(n + 1, std::vector<int>(m + 1, 0));

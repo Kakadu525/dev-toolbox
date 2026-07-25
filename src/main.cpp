@@ -21,6 +21,7 @@
 #include "tools/LogTool.h"
 #include "tools/ProcessTool.h"
 #include "tools/ClipboardTool.h"
+#include "tools/SettingsTool.h"
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -46,14 +47,13 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int nCmdShow)
     ToolRegistry::Instance().Register("http", std::make_unique<HttpTool>());
     ToolRegistry::Instance().Register("image", std::make_unique<ImageTool>());
     ToolRegistry::Instance().Register("process", std::make_unique<ProcessTool>());
+    ToolRegistry::Instance().Register("settings", std::make_unique<SettingsTool>());
 
     ToolRegistry::Instance().Register("log", std::make_unique<LogTool>(
         [](const std::string& msg) {
             ToolRegistry::Instance().GetPushCallback()(msg);
         }));
 
-    // ClipboardTool регистрируем через unique_ptr, но также сохраняем сырой указатель,
-    // чтобы WndProc мог вызывать OnClipboardChanged напрямую при получении сообщения
     auto clipboardTool = std::make_unique<ClipboardTool>();
     g_clipboardTool = clipboardTool.get();
     ToolRegistry::Instance().Register("clipboard", std::move(clipboardTool));
@@ -75,8 +75,6 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int nCmdShow)
 
     if (!hwnd) return 0;
 
-    // Регистрируем окно как слушателя изменений буфера обмена —
-    // после этого будем получать WM_CLIPBOARDUPDATE при каждом копировании где угодно в системе
     AddClipboardFormatListener(hwnd);
 
     ShowWindow(hwnd, nCmdShow);

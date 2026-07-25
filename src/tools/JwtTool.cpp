@@ -6,7 +6,6 @@
 
 using json = nlohmann::json;
 
-// Base64URL алфавит отличается от обычного Base64 символами '-' и '_' вместо '+' и '/'
 namespace {
     std::string DecodeBase64Url(const std::string& input) {
         std::vector<int> table(256, -1);

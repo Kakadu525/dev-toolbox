@@ -6,9 +6,9 @@ const HttpTool = {
     const row = document.createElement('div');
     row.style.cssText = 'display: flex; gap: 8px; margin-bottom: 8px;';
     row.innerHTML = `
-      <input type="text" class="http-header-key" placeholder="Header name" style="flex: 1; padding: 6px; background: #2d2d30; color: white; border: 1px solid #3c3c3c;">
-      <input type="text" class="http-header-value" placeholder="Header value" style="flex: 1; padding: 6px; background: #2d2d30; color: white; border: 1px solid #3c3c3c;">
-    `;
+  <input type="text" class="http-header-key themed-input" placeholder="Header name" style="flex: 1;">
+  <input type="text" class="http-header-value themed-input" placeholder="Header value" style="flex: 1;">
+`;
     container.appendChild(row);
   },
 

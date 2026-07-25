@@ -4,7 +4,6 @@
 #include <string>
 #include "WebView2.h"
 
-// Кастомное оконное сообщение для безопасной передачи данных из фонового потока в UI-поток
 #define WM_APP_WEBVIEW_PUSH (WM_APP + 1)
 
 class WebViewHost

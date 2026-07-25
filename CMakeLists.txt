@@ -106,6 +106,8 @@ add_executable(DevToolbox WIN32
     src/tools/ProcessTool.h
     src/tools/ClipboardTool.cpp
     src/tools/ClipboardTool.h
+    src/tools/SettingsTool.cpp
+    src/tools/SettingsTool.h
 )
 
 target_include_directories(DevToolbox PRIVATE

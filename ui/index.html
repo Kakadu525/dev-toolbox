@@ -27,7 +27,8 @@
 	  <div class="sidebar-item" data-tool="log">Log Viewer</div>
 	  <div class="sidebar-item" data-tool="process">Process Explorer</div>
 	  <div class="sidebar-item" data-tool="clipboard">Clipboard History</div>
-      <!-- сюда будут добавляться новые инструменты -->
+	  <div class="sidebar-item" data-tool="settings">Settings</div>
+	  
     </nav>
     <main class="content">
       <section id="tool-base64" class="tool-panel active">
@@ -105,7 +106,7 @@
 	  
 	  <section id="tool-regex" class="tool-panel">
         <h2>Regex Tester</h2>
-        <input type="text" id="regex-pattern" placeholder="Паттерн, например: \d+" style="width: 100%; padding: 8px; margin-bottom: 12px; background: #2d2d30; color: white; border: 1px solid #3c3c3c;">
+        <input type="text" id="regex-pattern" placeholder="Паттерн, например: \d+" class="themed-input" style="width: 100%; margin-bottom: 12px;">
         <textarea id="regex-text" placeholder="Тестовый текст"></textarea>
         <div class="actions">
 		  <button onclick="clearFields('regex-pattern', 'regex-text', 'regex-output')" class="btn-clear">Clear</button>
@@ -129,7 +130,7 @@
 	  
 	  <section id="tool-color" class="tool-panel">
         <h2>Color Picker</h2>
-        <input type="text" id="color-input" placeholder="Например: #ff5733" style="width: 300px; padding: 8px; margin-bottom: 12px; background: #2d2d30; color: white; border: 1px solid #3c3c3c;">
+        <input type="text" id="color-input" placeholder="Например: #ff5733" class="themed-input" style="width: 300px; margin-bottom: 12px;">
         <div class="actions">
 		  <button onclick="clearFields('color-input', 'color-output')" class="btn-clear">Clear</button>
           <button onclick="ColorTool.convert()">Convert</button>
@@ -142,12 +143,12 @@
 	  
 	  <section id="tool-cron" class="tool-panel">
         <h2>Cron Parser</h2>
-        <input type="text" id="cron-input" placeholder="Например: */5 9-17 * * 1-5" style="width: 300px; padding: 8px; margin-bottom: 12px; background: #2d2d30; color: white; border: 1px solid #3c3c3c;">
+        <input type="text" id="cron-input" placeholder="Например: */5 9-17 * * 1-5" class="themed-input" style="width: 300px; margin-bottom: 12px;">
         <div class="actions">
 		  <button onclick="clearFields('cron-input', 'cron-output')" class="btn-clear">Clear</button>
           <button onclick="CronTool.parse()">Parse</button>
         </div>
-        <div id="cron-output" style="font-family: monospace; background: #2d2d30; padding: 12px; border: 1px solid #3c3c3c;"></div>
+        <div id="cron-output" class="themed-input" style="font-family: monospace;"></div>
       </section>
 	  
 	  <section id="tool-sql" class="tool-panel">
@@ -164,14 +165,14 @@
         <h2>cURL Generator</h2>
 
         <div style="display: flex; gap: 8px; margin-bottom: 12px;">
-          <select id="curl-method" style="padding: 8px; background: #2d2d30; color: white; border: 1px solid #3c3c3c;">
+          <select id="curl-method" class="themed-input">
             <option>GET</option>
             <option>POST</option>
             <option>PUT</option>
             <option>PATCH</option>
             <option>DELETE</option>
           </select>
-          <input type="text" id="curl-url" placeholder="https://api.example.com/users" style="flex: 1; padding: 8px; background: #2d2d30; color: white; border: 1px solid #3c3c3c;">
+          <input type="text" id="curl-url" placeholder="https://api.example.com/users" class="themed-input" style="flex: 1;">
         </div>
 
         <div id="curl-headers" style="margin-bottom: 8px;"></div>
@@ -193,7 +194,7 @@
 
         <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 12px;">
           <label>Уровень коррекции ошибок:</label>
-          <select id="qr-ecc" style="padding: 6px; background: #2d2d30; color: white; border: 1px solid #3c3c3c;">
+          <select id="qr-ecc" class="themed-input">
             <option value="LOW">Low (7%)</option>
             <option value="MEDIUM" selected>Medium (15%)</option>
             <option value="QUARTILE">Quartile (25%)</option>
@@ -213,7 +214,7 @@
         <h2>HTTP Client</h2>
 
         <div style="display: flex; gap: 8px; margin-bottom: 12px;">
-          <select id="http-method" style="padding: 8px; background: #2d2d30; color: white; border: 1px solid #3c3c3c;">
+          <select id="http-method" class="themed-input">
             <option>GET</option>
             <option>POST</option>
             <option>PUT</option>
@@ -221,7 +222,7 @@
             <option>DELETE</option>
             <option>HEAD</option>
           </select>
-          <input type="text" id="http-url" placeholder="https://api.example.com/users" style="flex: 1; padding: 8px; background: #2d2d30; color: white; border: 1px solid #3c3c3c;">
+          <input type="text" id="http-url" placeholder="..." class="themed-input" style="flex: 1;">
           <button onclick="HttpTool.send()">Send</button>
 		  <button onclick="clearFields('http-url', 'http-body', 'http-response-headers', 'http-response-body'); document.getElementById('http-status').textContent = '';" class="btn-clear">Clear</button>
         </div>
@@ -252,15 +253,15 @@
 
         <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 12px; flex-wrap: wrap;">
           <label>Формат:
-            <select id="image-format" style="padding: 6px; background: #2d2d30; color: white; border: 1px solid #3c3c3c;">
+            <select id="image-format" class="themed-input">
               <option value="png">PNG</option>
               <option value="jpeg">JPEG</option>
               <option value="bmp">BMP</option>
             </select>
           </label>
-          <label>Качество (JPEG): <input type="number" id="image-quality" value="90" min="1" max="100" style="width: 60px; padding: 6px; background: #2d2d30; color: white; border: 1px solid #3c3c3c;"></label>
-          <label>Ширина: <input type="number" id="image-width" placeholder="авто" style="width: 80px; padding: 6px; background: #2d2d30; color: white; border: 1px solid #3c3c3c;"></label>
-          <label>Высота: <input type="number" id="image-height" placeholder="авто" style="width: 80px; padding: 6px; background: #2d2d30; color: white; border: 1px solid #3c3c3c;"></label>
+          <label>Качество (JPEG): <input type="number" id="image-quality" value="90" min="1" max="100" class="themed-input" style="width: 60px;">></label>
+          <label>Ширина: <input type="number" id="image-width" placeholder="авто" class="themed-input" style="width: 80px;">></label>
+          <label>Высота: <input type="number" id="image-height" placeholder="авто" class="themed-input" style="width: 80px;">></label>
         </div>
 
         <div class="actions">
@@ -280,14 +281,14 @@
         <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 12px; flex-wrap: wrap;">
           <button onclick="LogTool.pickFile()">Open File...</button>
           <button id="log-watch-btn" onclick="LogTool.toggleWatch()">Start Watching</button>
-          <input type="text" id="log-filter" placeholder="Фильтр (например: ERROR)" oninput="LogTool.filter()" style="padding: 8px; background: #2d2d30; color: white; border: 1px solid #3c3c3c;">
+          <input type="text" id="log-filter" placeholder="Фильтр (например: ERROR)" oninput="LogTool.filter()" class="themed-input">
 		  <button onclick="document.getElementById('log-filter').value=''; LogTool.renderFiltered();" class="btn-clear">Clear Filter</button>
         </div>
 
         <div id="log-filename" style="color: #aaa; font-family: monospace; margin-bottom: 4px;"></div>
         <div id="log-status" style="color: #aaa; margin-bottom: 8px;"></div>
 
-        <pre id="log-output" style="background: #1a1a1a; border: 1px solid #3c3c3c; padding: 12px; height: 400px; overflow-y: auto; font-family: monospace; font-size: 12px; white-space: pre-wrap; margin: 0;"></pre>
+        <pre id="log-output" class="themed-input" style="height: 400px; overflow-y: auto; font-family: monospace; font-size: 12px; white-space: pre-wrap; margin: 0;"></pre>
       </section>
 	  
 	  <section id="tool-process" class="tool-panel">
@@ -295,7 +296,7 @@
 
         <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 12px;">
           <button onclick="ProcessTool.refresh()">Refresh</button>
-          <input type="text" id="process-filter" placeholder="Фильтр по имени" oninput="ProcessTool.render()" style="padding: 8px; background: #2d2d30; color: white; border: 1px solid #3c3c3c;">
+          <input type="text" id="process-filter" placeholder="Фильтр по имени" oninput="ProcessTool.render()" class="themed-input">
         </div>
 
         <div id="process-status" style="color: #aaa; margin-bottom: 8px;"></div>
@@ -329,6 +330,30 @@
 
         <div id="clipboard-list"></div>
       </section>
+	  
+	  <section id="tool-settings" class="tool-panel">
+        <h2>Settings</h2>
+
+        <div style="margin-bottom: 16px;">
+          <label style="display: block; margin-bottom: 6px; color: #aaa;">Тема</label>
+          <select id="settings-theme" class="themed-input" style="width: 200px;">
+            <option value="dark">Тёмная</option>
+            <option value="light">Светлая</option>
+          </select>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <label style="display: block; margin-bottom: 6px; color: #aaa;">Размер шрифта</label>
+          <select id="settings-font-size" class="themed-input" style="width: 200px;">
+            <option value="small">Маленький</option>
+            <option value="medium">Средний</option>
+            <option value="large">Крупный</option>
+          </select>
+        </div>
+
+        <button onclick="SettingsTool.save()">Сохранить</button>
+        <div id="settings-status" style="margin-top: 12px; color: #4caf50;"></div>
+      </section>
     </main>
   </div>
 
@@ -352,6 +377,7 @@
   <script src="tools/log.js"></script>
   <script src="tools/process.js"></script>
   <script src="tools/clipboard.js"></script>
+  <script src="tools/settings.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

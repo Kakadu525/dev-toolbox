@@ -9,13 +9,12 @@ std::string JsonTool::Execute(const std::string& action, const std::string& payl
     try {
         parsed = json::parse(payload);
     }
+	// Отдаём понятную ошибку
     catch (const json::parse_error& e) {
-        // Отдаём понятную ошибку, что именно не так с JSON
         throw std::runtime_error(std::string("Invalid JSON: ") + e.what());
     }
 
     if (action == "pretty") {
-        // 4 пробела отступа, false = не экранировать юникод
         return parsed.dump(4, ' ', false);
     }
     if (action == "minify") {

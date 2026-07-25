@@ -20,7 +20,6 @@ namespace {
                 for (int i = minVal; i <= maxVal; i++) result.insert(i);
             }
             else if (part.find('/') != std::string::npos) {
-                // формат */N или M-N/step
                 auto slashPos = part.find('/');
                 std::string rangePart = part.substr(0, slashPos);
                 int step = std::stoi(part.substr(slashPos + 1));

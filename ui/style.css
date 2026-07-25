@@ -1,10 +1,38 @@
+:root {
+  --bg-main: #1e1e1e;
+  --bg-sidebar: #252526;
+  --bg-panel: #2d2d30;
+  --bg-hover: #2a2d3a;
+  --border-color: #3c3c3c;
+  --text-main: #ffffff;
+  --text-muted: #aaaaaa;
+  --accent: #4fc3f7;
+  --font-size-base: 14px;
+}
+
+body.theme-light {
+  --bg-main: #f5f5f5;
+  --bg-sidebar: #e8e8e8;
+  --bg-panel: #ffffff;
+  --bg-hover: #e0eefc;
+  --border-color: #cccccc;
+  --text-main: #1a1a1a;
+  --text-muted: #555555;
+  --accent: #0e639c;
+}
+
+body.font-small { --font-size-base: 12px; }
+body.font-medium { --font-size-base: 14px; }
+body.font-large { --font-size-base: 17px; }
+
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
-  background: #1e1e1e;
-  color: #ffffff;
+  background: var(--bg-main);
+  color: var(--text-main);
   font-family: sans-serif;
+  font-size: var(--font-size-base);
 }
 
 .layout {
@@ -14,7 +42,7 @@ body {
 
 .sidebar {
   width: 220px;
-  background: #252526;
+  background: var(--bg-sidebar);
   padding: 16px 0;
   flex-shrink: 0;
 }
@@ -25,12 +53,12 @@ body {
 }
 
 .sidebar-item:hover {
-  background: #2d2d30;
+  background: var(--bg-hover);
 }
 
 .sidebar-item.active {
-  background: #37373d;
-  border-left: 3px solid #4fc3f7;
+  background: var(--bg-hover);
+  border-left: 3px solid var(--accent);
 }
 
 .content {
@@ -50,14 +78,21 @@ body {
 textarea {
   width: 100%;
   height: 140px;
-  background: #2d2d30;
-  color: #ffffff;
-  border: 1px solid #3c3c3c;
+  background: var(--bg-panel);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
   padding: 8px;
   font-family: monospace;
   font-size: 13px;
   resize: vertical;
   margin-bottom: 12px;
+}
+
+.themed-input {
+  background: var(--bg-panel);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  padding: 8px;
 }
 
 .actions {
@@ -78,9 +113,18 @@ button:hover {
   background: #1177bb;
 }
 
+.btn-clear {
+  background: #3c3c3c;
+}
+
+.btn-clear:hover {
+  background: #4a4a4a;
+}
+
+/* Diff Viewer */
 .diff-container {
-  background: #2d2d30;
-  border: 1px solid #3c3c3c;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
   padding: 8px;
   font-family: monospace;
   font-size: 13px;
@@ -94,7 +138,7 @@ button:hover {
 }
 
 .diff-same {
-  color: #cccccc;
+  color: var(--text-muted);
 }
 
 .diff-added {
@@ -107,6 +151,7 @@ button:hover {
   color: #f44336;
 }
 
+/* QR Generator */
 #qr-output svg {
   width: 260px;
   height: 260px;
@@ -115,10 +160,11 @@ button:hover {
   border-radius: 4px;
 }
 
+/* Process Explorer */
 .process-table-container {
   max-height: 550px;
   overflow-y: auto;
-  border: 1px solid #3c3c3c;
+  border: 1px solid var(--border-color);
   border-radius: 6px;
 }
 
@@ -135,40 +181,40 @@ button:hover {
 }
 
 #tool-process th {
-  background: #2d2d30;
+  background: var(--bg-panel);
   text-align: left;
   padding: 10px 12px;
   cursor: pointer;
   user-select: none;
   white-space: nowrap;
-  border-bottom: 2px solid #3c3c3c;
+  border-bottom: 2px solid var(--border-color);
 }
 
 #tool-process th:hover {
-  background: #37373d;
+  background: var(--bg-hover);
 }
 
 .sort-indicator {
-  color: #4fc3f7;
+  color: var(--accent);
   font-size: 10px;
 }
 
 #tool-process td {
   padding: 8px 12px;
-  border-bottom: 1px solid #2d2d30;
+  border-bottom: 1px solid var(--border-color);
 }
 
 #tool-process tbody tr:nth-child(even) {
-  background: #232326;
+  background: rgba(255, 255, 255, 0.03);
 }
 
 #tool-process tbody tr:hover {
-  background: #2a2d3a;
+  background: var(--bg-hover);
 }
 
 .process-path {
   font-size: 11px;
-  color: #888;
+  color: var(--text-muted);
   max-width: 300px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -186,13 +232,14 @@ button:hover {
   background: #c73e3e;
 }
 
+/* Clipboard History */
 .clipboard-item {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   gap: 12px;
-  background: #2d2d30;
-  border: 1px solid #3c3c3c;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
   border-radius: 6px;
   padding: 12px;
   margin-bottom: 8px;
@@ -222,19 +269,11 @@ button:hover {
   max-width: 100%;
   max-height: 200px;
   border-radius: 4px;
-  border: 1px solid #3c3c3c;
+  border: 1px solid var(--border-color);
 }
 
 .clipboard-image-meta {
-  color: #888;
+  color: var(--text-muted);
   font-size: 12px;
   margin-top: 4px;
-}
-
-.btn-clear {
-  background: #3c3c3c;
-}
-
-.btn-clear:hover {
-  background: #4a4a4a;
 }

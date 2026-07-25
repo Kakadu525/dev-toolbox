@@ -77,11 +77,9 @@ namespace {
         bool firstToken = true;
         bool atLineStart = true;
 
-        // Список колонок после SELECT: помним, на каком уровне вложенности он начался
         bool selectListActive = false;
         int selectListDepth = 0;
 
-        // Стек уровней отступа, на которые нужно вернуться при END (для вложенных CASE)
         std::vector<int> caseIndentStack;
 
         auto writeIndent = [&](int level) {
@@ -110,7 +108,6 @@ namespace {
 
             if (token == ",") {
                 result << ",";
-                // Внутри активного списка колонок SELECT разрываем строку на "своём" уровне вложенности
                 if (selectListActive && indentLevel == selectListDepth) {
                     writeIndent(indentLevel + 1);
                     atLineStart = true;
@@ -118,7 +115,7 @@ namespace {
                 continue;
             }
 
-            // --- CASE / WHEN / THEN / ELSE / END ---
+            //  CASE / WHEN / THEN / ELSE / END 
             if (upperToken == "CASE") {
                 caseIndentStack.push_back(indentLevel);
                 if (!atLineStart) result << " ";
@@ -148,7 +145,6 @@ namespace {
                 continue;
             }
 
-            // --- обычные ключевые слова, начинающие новую строку ---
             bool startsNewline = kNewlineKeywords.count(upperToken) > 0 && !firstToken;
 
             if (upperToken == "SELECT") {
@@ -157,7 +153,6 @@ namespace {
             }
             else if (selectListActive && indentLevel == selectListDepth &&
                 kNewlineKeywords.count(upperToken) > 0 && upperToken != "SELECT") {
-                // Любое следующее ключевое слово (FROM, WHERE и т.д.) завершает список колонок
                 selectListActive = false;
             }
 
@@ -176,7 +171,6 @@ namespace {
                 result << token;
             }
 
-            // Если только что вывели SELECT — следующая колонка должна начаться с новой строки
             if (upperToken == "SELECT") {
                 writeIndent(indentLevel + 1);
                 atLineStart = true;

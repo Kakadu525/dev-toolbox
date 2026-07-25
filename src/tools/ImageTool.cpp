@@ -49,7 +49,6 @@ namespace {
         return result;
     }
 
-    // stb_image_write пишет результат через callback
     void WriteCallback(void* context, void* data, int size) {
         auto* out = reinterpret_cast<std::vector<unsigned char>*>(context);
         auto* bytes = reinterpret_cast<unsigned char*>(data);
