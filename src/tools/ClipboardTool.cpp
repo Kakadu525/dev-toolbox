@@ -278,7 +278,9 @@ std::string ClipboardTool::Execute(const std::string& action, const std::string&
 
         if (entry.type == "image") {
             HGLOBAL hDib = PngBase64ToDibGlobal(entry.content);
-            SetClipboardData(CF_DIB, hDib);
+            if (!SetClipboardData(CF_DIB, hDib)) {
+                GlobalFree(hDib);
+            }
         }
         else {
             std::wstring wideText = Utf8ToWide(entry.content);
@@ -288,7 +290,9 @@ std::string ClipboardTool::Execute(const std::string& action, const std::string&
                 void* pMem = GlobalLock(hMem);
                 memcpy(pMem, wideText.c_str(), bytes);
                 GlobalUnlock(hMem);
-                SetClipboardData(CF_UNICODETEXT, hMem);
+                if (!SetClipboardData(CF_UNICODETEXT, hMem)) {
+                    GlobalFree(hMem);
+                }
             }
         }
 
