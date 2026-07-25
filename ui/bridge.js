@@ -13,3 +13,17 @@ function sendToolRequest(tool, action, payload, callback) {
   pendingCallbacks[tool] = callback;
   window.chrome.webview.postMessage(JSON.stringify({ tool, action, payload }));
 }
+
+function clearFields(...fieldIds) {
+  fieldIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    if (el.tagName === 'TEXTAREA' || el.tagName === 'INPUT') {
+      el.value = '';
+    } else {
+      el.textContent = '';
+      el.innerHTML = '';
+    }
+  });
+}
