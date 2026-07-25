@@ -26,6 +26,7 @@
 	  <div class="sidebar-item" data-tool="image">Image Converter</div>
 	  <div class="sidebar-item" data-tool="log">Log Viewer</div>
 	  <div class="sidebar-item" data-tool="process">Process Explorer</div>
+	  <div class="sidebar-item" data-tool="clipboard">Clipboard History</div>
       <!-- сюда будут добавляться новые инструменты -->
     </nav>
     <main class="content">
@@ -298,6 +299,19 @@
           </table>
         </div>
       </section>
+	  
+	  <section id="tool-clipboard" class="tool-panel">
+        <h2>Clipboard History</h2>
+
+        <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+          <button onclick="ClipboardTool.refresh()">Refresh</button>
+          <button onclick="ClipboardTool.clear()" style="background: #a83232;">Очистить историю</button>
+        </div>
+
+        <div id="clipboard-status" style="color: #aaa; margin-bottom: 12px;"></div>
+
+        <div id="clipboard-list"></div>
+      </section>
     </main>
   </div>
 
@@ -320,6 +334,7 @@
   <script src="tools/image.js"></script>
   <script src="tools/log.js"></script>
   <script src="tools/process.js"></script>
+  <script src="tools/clipboard.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

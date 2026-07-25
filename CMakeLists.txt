@@ -104,6 +104,8 @@ add_executable(DevToolbox WIN32
     src/tools/LogTool.h
     src/tools/ProcessTool.cpp
     src/tools/ProcessTool.h
+    src/tools/ClipboardTool.cpp
+    src/tools/ClipboardTool.h
 )
 
 target_include_directories(DevToolbox PRIVATE
@@ -122,6 +124,7 @@ target_link_libraries(DevToolbox PRIVATE
     winhttp.lib
     comdlg32.lib
     psapi.lib
+    gdi32.lib
 )
 
 target_compile_definitions(DevToolbox PRIVATE UNICODE _UNICODE)

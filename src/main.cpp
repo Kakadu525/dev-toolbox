@@ -20,10 +20,12 @@
 #include "tools/ImageTool.h"
 #include "tools/LogTool.h"
 #include "tools/ProcessTool.h"
+#include "tools/ClipboardTool.h"
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 WebViewHost* g_webviewHost = nullptr;
+ClipboardTool* g_clipboardTool = nullptr;
 
 int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int nCmdShow)
 {
@@ -50,6 +52,12 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int nCmdShow)
             ToolRegistry::Instance().GetPushCallback()(msg);
         }));
 
+    // ClipboardTool регистрируем через unique_ptr, но также сохраняем сырой указатель,
+    // чтобы WndProc мог вызывать OnClipboardChanged напрямую при получении сообщения
+    auto clipboardTool = std::make_unique<ClipboardTool>();
+    g_clipboardTool = clipboardTool.get();
+    ToolRegistry::Instance().Register("clipboard", std::move(clipboardTool));
+
     const wchar_t CLASS_NAME[] = L"DevToolboxWindowClass";
 
     WNDCLASS wc = {};
@@ -67,6 +75,10 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int nCmdShow)
 
     if (!hwnd) return 0;
 
+    // Регистрируем окно как слушателя изменений буфера обмена —
+    // после этого будем получать WM_CLIPBOARDUPDATE при каждом копировании где угодно в системе
+    AddClipboardFormatListener(hwnd);
+
     ShowWindow(hwnd, nCmdShow);
     UpdateWindow(hwnd);
 
@@ -80,6 +92,7 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int nCmdShow)
         DispatchMessage(&msg);
     }
 
+    RemoveClipboardFormatListener(hwnd);
     delete g_webviewHost;
     return 0;
 }
@@ -95,6 +108,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
     case WM_APP_WEBVIEW_PUSH:
         if (g_webviewHost)
             g_webviewHost->HandleThreadSafeMessage(lParam);
+        return 0;
+    case WM_CLIPBOARDUPDATE:
+        if (g_clipboardTool)
+            g_clipboardTool->OnClipboardChanged(hwnd);
         return 0;
     case WM_DESTROY:
         PostQuitMessage(0);

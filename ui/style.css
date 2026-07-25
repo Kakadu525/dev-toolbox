@@ -185,3 +185,48 @@ button:hover {
 .process-kill-btn:hover {
   background: #c73e3e;
 }
+
+.clipboard-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  background: #2d2d30;
+  border: 1px solid #3c3c3c;
+  border-radius: 6px;
+  padding: 12px;
+  margin-bottom: 8px;
+}
+
+.clipboard-item-text {
+  flex: 1;
+  font-family: monospace;
+  font-size: 13px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 100px;
+  overflow-y: auto;
+}
+
+.clipboard-restore-btn {
+  flex-shrink: 0;
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.clipboard-item-image {
+  flex: 1;
+}
+
+.clipboard-item-image img {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: 4px;
+  border: 1px solid #3c3c3c;
+}
+
+.clipboard-image-meta {
+  color: #888;
+  font-size: 12px;
+  margin-top: 4px;
+}
