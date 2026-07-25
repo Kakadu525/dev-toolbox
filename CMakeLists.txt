@@ -108,6 +108,7 @@ add_executable(DevToolbox WIN32
     src/tools/ClipboardTool.h
     src/tools/SettingsTool.cpp
     src/tools/SettingsTool.h
+    resources/app.rc
 )
 
 target_include_directories(DevToolbox PRIVATE

@@ -64,6 +64,7 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int nCmdShow)
     wc.lpfnWndProc = WndProc;
     wc.hInstance = hInstance;
     wc.lpszClassName = CLASS_NAME;
+    wc.hIcon = LoadIconW(hInstance, MAKEINTRESOURCEW(101)); 
     RegisterClass(&wc);
 
     HWND hwnd = CreateWindowEx(
