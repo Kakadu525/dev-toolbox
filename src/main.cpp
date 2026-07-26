@@ -1,7 +1,9 @@
 #include <windows.h>
+#include <shlwapi.h>
 #include <memory>
 #include "WebViewHost.h"
 #include "ToolRegistry.h"
+#include "EmbeddedUi.h"
 #include "tools/Base64Tool.h"
 #include "tools/HashTool.h"
 #include "tools/UuidTool.h"
@@ -22,6 +24,7 @@
 #include "tools/ProcessTool.h"
 #include "tools/ClipboardTool.h"
 #include "tools/SettingsTool.h"
+#pragma comment(lib, "shlwapi.lib")
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -64,7 +67,7 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int nCmdShow)
     wc.lpfnWndProc = WndProc;
     wc.hInstance = hInstance;
     wc.lpszClassName = CLASS_NAME;
-    wc.hIcon = LoadIconW(hInstance, MAKEINTRESOURCEW(101)); 
+    wc.hIcon = LoadIconW(hInstance, MAKEINTRESOURCEW(101));
     RegisterClass(&wc);
 
     HWND hwnd = CreateWindowEx(
@@ -81,8 +84,20 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int nCmdShow)
     ShowWindow(hwnd, nCmdShow);
     UpdateWindow(hwnd);
 
+
+    std::wstring uiRootDir;
+    try {
+        uiRootDir = EmbeddedUi::ExtractToTempDir();
+    }
+    catch (const std::exception&) {
+        wchar_t exePath[MAX_PATH];
+        GetModuleFileNameW(nullptr, exePath, MAX_PATH);
+        PathRemoveFileSpecW(exePath);
+        uiRootDir = std::wstring(exePath) + L"\\ui";
+    }
+
     g_webviewHost = new WebViewHost();
-    g_webviewHost->Initialize(hwnd);
+    g_webviewHost->Initialize(hwnd, uiRootDir);
 
     MSG msg = {};
     while (GetMessage(&msg, nullptr, 0, 0))
@@ -93,6 +108,10 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int nCmdShow)
 
     RemoveClipboardFormatListener(hwnd);
     delete g_webviewHost;
+
+    // Чистим за собой временную папку с распакованным UI
+    EmbeddedUi::Cleanup(uiRootDir);
+
     return 0;
 }
 
@@ -104,6 +123,13 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
         if (g_webviewHost)
             g_webviewHost->ResizeToWindow(hwnd);
         return 0;
+    case WM_GETMINMAXINFO:
+    {
+        MINMAXINFO* mmi = reinterpret_cast<MINMAXINFO*>(lParam);
+        mmi->ptMinTrackSize.x = 1000;
+        mmi->ptMinTrackSize.y = 650;
+        return 0;
+    }
     case WM_APP_WEBVIEW_PUSH:
         if (g_webviewHost)
             g_webviewHost->HandleThreadSafeMessage(lParam);
@@ -112,15 +138,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
         if (g_clipboardTool)
             g_clipboardTool->OnClipboardChanged(hwnd);
         return 0;
-
-    case WM_GETMINMAXINFO:
-    {
-        MINMAXINFO* mmi = reinterpret_cast<MINMAXINFO*>(lParam);
-        mmi->ptMinTrackSize.x = 1000;
-        mmi->ptMinTrackSize.y = 650;
-        return 0;
-    }
-
     case WM_DESTROY:
         PostQuitMessage(0);
         return 0;

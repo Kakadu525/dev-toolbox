@@ -9,7 +9,7 @@
 class WebViewHost
 {
 public:
-    void Initialize(HWND parentWindow);
+    void Initialize(HWND parentWindow, const std::wstring& uiRootDir);
     void ResizeToWindow(HWND parentWindow);
     void PostMessageToWebView(const std::wstring& message);
     void PostMessageToWebViewThreadSafe(const std::wstring& message);
@@ -19,6 +19,7 @@ private:
     void SetupMessageBridge();
 
     HWND m_hwnd = nullptr;
+    std::wstring m_uiRootDir;
     Microsoft::WRL::ComPtr<ICoreWebView2Controller> m_controller;
     Microsoft::WRL::ComPtr<ICoreWebView2> m_webview;
 };

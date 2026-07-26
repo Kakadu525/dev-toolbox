@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(DevToolbox LANGUAGES CXX)
+project(DevToolbox LANGUAGES CXX C)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -58,6 +58,34 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(stb)
 
+set(CMAKE_POLICY_VERSION_MINIMUM 3.5)
+FetchContent_Declare(
+    miniz
+    GIT_REPOSITORY https://github.com/richgel999/miniz.git
+    GIT_TAG 3.0.2
+)
+FetchContent_MakeAvailable(miniz)
+unset(CMAKE_POLICY_VERSION_MINIMUM)
+
+# ── Упаковка ui/ в один zip-архив на этапе сборки, чтобы встроить его в exe ──
+set(UI_ZIP_PATH ${CMAKE_BINARY_DIR}/ui_embedded.zip)
+file(GLOB_RECURSE UI_SOURCE_FILES CONFIGURE_DEPENDS ${CMAKE_SOURCE_DIR}/ui/*)
+
+add_custom_command(
+    OUTPUT ${UI_ZIP_PATH}
+    COMMAND ${CMAKE_COMMAND} -E tar cf ${UI_ZIP_PATH} --format=zip -- .
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/ui
+    DEPENDS ${UI_SOURCE_FILES}
+    COMMENT "Packaging ui/ into ui_embedded.zip for embedding into the exe"
+)
+add_custom_target(ui_zip_target DEPENDS ${UI_ZIP_PATH})
+
+configure_file(
+    ${CMAKE_SOURCE_DIR}/resources/ui_data.rc.in
+    ${CMAKE_BINARY_DIR}/ui_data.rc
+    @ONLY
+)
+
 add_executable(DevToolbox WIN32
     src/main.cpp
     src/WebViewHost.cpp
@@ -66,6 +94,8 @@ add_executable(DevToolbox WIN32
     src/ToolRegistry.h
     src/StringUtil.h
     src/StbImpl.cpp
+    src/EmbeddedUi.cpp
+    src/EmbeddedUi.h
     src/tools/ITool.h
     src/tools/Base64Tool.cpp
     src/tools/Base64Tool.h
@@ -109,12 +139,17 @@ add_executable(DevToolbox WIN32
     src/tools/SettingsTool.cpp
     src/tools/SettingsTool.h
     resources/app.rc
+    ${CMAKE_BINARY_DIR}/ui_data.rc
 )
+
+add_dependencies(DevToolbox ui_zip_target)
 
 target_include_directories(DevToolbox PRIVATE
     ${WEBVIEW2_DIR}/build/native/include
     ${qrcodegen_SOURCE_DIR}/cpp
     ${stb_SOURCE_DIR}
+    ${miniz_SOURCE_DIR}
+    ${miniz_BINARY_DIR}
 )
 
 target_link_libraries(DevToolbox PRIVATE
@@ -128,6 +163,8 @@ target_link_libraries(DevToolbox PRIVATE
     comdlg32.lib
     psapi.lib
     gdi32.lib
+    advapi32.lib
+    miniz
 )
 
 target_compile_definitions(DevToolbox PRIVATE UNICODE _UNICODE)
@@ -136,6 +173,8 @@ set_target_properties(DevToolbox PROPERTIES
     LINK_FLAGS "/MANIFESTUAC:\"level='requireAdministrator' uiAccess='false'\""
 )
 
+# Копируем ui/ рядом с exe как запасной вариант (fallback), на случай если
+# извлечение встроенного ресурса в рантайме почему-то не сработает
 add_custom_command(TARGET DevToolbox POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         ${CMAKE_SOURCE_DIR}/ui

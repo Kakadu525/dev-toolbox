@@ -7,9 +7,10 @@
 
 using namespace Microsoft::WRL;
 
-void WebViewHost::Initialize(HWND parentWindow)
+void WebViewHost::Initialize(HWND parentWindow, const std::wstring& uiRootDir)
 {
     m_hwnd = parentWindow;
+    m_uiRootDir = uiRootDir;
 
     CreateCoreWebView2EnvironmentWithOptions(nullptr, nullptr, nullptr,
         Callback<ICoreWebView2CreateCoreWebView2EnvironmentCompletedHandler>(
@@ -37,10 +38,7 @@ void WebViewHost::Initialize(HWND parentWindow)
                                     PostMessageToWebViewThreadSafe(wideMessage);
                                 });
 
-                            wchar_t exePath[MAX_PATH];
-                            GetModuleFileNameW(nullptr, exePath, MAX_PATH);
-                            PathRemoveFileSpecW(exePath);
-                            std::wstring indexPath = std::wstring(exePath) + L"\\ui\\index.html";
+                            std::wstring indexPath = m_uiRootDir + L"\\index.html";
                             std::wstring url = L"file:///" + indexPath;
 
                             m_webview->Navigate(url.c_str());
@@ -84,7 +82,6 @@ void WebViewHost::PostMessageToWebView(const std::wstring& message)
 
 void WebViewHost::PostMessageToWebViewThreadSafe(const std::wstring& message)
 {
-
     auto* heapMessage = new std::wstring(message);
     ::PostMessageW(m_hwnd, WM_APP_WEBVIEW_PUSH, 0, reinterpret_cast<LPARAM>(heapMessage));
 }
