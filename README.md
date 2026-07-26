@@ -2,6 +2,8 @@
 
 **Оффлайн-набор инструментов разработчика для Windows.** Один компактный `.exe`-файл вместо двадцати вкладок с онлайн-сервисами, к которым обычно тянется рука во время работы — форматирование JSON, декодирование JWT, тестирование regex, генерация QR-кодов и многое другое, без интернета и без риска отправить чувствительные данные на сторонний сайт.
 
+![Uploading ggb97575bd1f.gif…]()
+
 ![Platform](https://img.shields.io/badge/platform-Windows-blue)
 ![Language](https://img.shields.io/badge/language-C%2B%2B20-00599C)
 ![License](https://img.shields.io/badge/license-MIT-green)
