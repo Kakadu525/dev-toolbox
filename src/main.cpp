@@ -70,7 +70,7 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int nCmdShow)
     HWND hwnd = CreateWindowEx(
         0, CLASS_NAME, L"Dev Toolbox",
         WS_OVERLAPPEDWINDOW,
-        CW_USEDEFAULT, CW_USEDEFAULT, 1200, 800,
+        CW_USEDEFAULT, CW_USEDEFAULT, 1600, 980,
         nullptr, nullptr, hInstance, nullptr
     );
 
@@ -112,6 +112,15 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
         if (g_clipboardTool)
             g_clipboardTool->OnClipboardChanged(hwnd);
         return 0;
+
+    case WM_GETMINMAXINFO:
+    {
+        MINMAXINFO* mmi = reinterpret_cast<MINMAXINFO*>(lParam);
+        mmi->ptMinTrackSize.x = 1000;
+        mmi->ptMinTrackSize.y = 650;
+        return 0;
+    }
+
     case WM_DESTROY:
         PostQuitMessage(0);
         return 0;

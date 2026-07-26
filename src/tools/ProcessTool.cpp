@@ -3,9 +3,13 @@
 #include <windows.h>
 #include <tlhelp32.h>
 #include <psapi.h>
+#include <sddl.h>
 #include <nlohmann/json.hpp>
 #include <stdexcept>
+#include <sstream>
+#include <iomanip>
 #pragma comment(lib, "psapi.lib")
+#pragma comment(lib, "advapi32.lib")
 
 using json = nlohmann::json;
 
@@ -19,6 +23,45 @@ namespace {
         if (buf) LocalFree(buf);
         while (!result.empty() && (result.back() == '\n' || result.back() == '\r')) result.pop_back();
         return result;
+    }
+
+    std::string GetProcessOwner(HANDLE hProcess) {
+        HANDLE hToken = nullptr;
+        if (!OpenProcessToken(hProcess, TOKEN_QUERY, &hToken)) return "—";
+
+        DWORD tokenInfoLen = 0;
+        GetTokenInformation(hToken, TokenUser, nullptr, 0, &tokenInfoLen);
+        if (tokenInfoLen == 0) { CloseHandle(hToken); return "—"; }
+
+        std::vector<BYTE> buffer(tokenInfoLen);
+        std::string result = "—";
+
+        if (GetTokenInformation(hToken, TokenUser, buffer.data(), tokenInfoLen, &tokenInfoLen)) {
+            auto* tokenUser = reinterpret_cast<TOKEN_USER*>(buffer.data());
+
+            wchar_t nameBuf[256], domainBuf[256];
+            DWORD nameLen = 256, domainLen = 256;
+            SID_NAME_USE sidType;
+
+            if (LookupAccountSidW(nullptr, tokenUser->User.Sid, nameBuf, &nameLen, domainBuf, &domainLen, &sidType)) {
+                result = WideToUtf8(nameBuf);
+            }
+        }
+
+        CloseHandle(hToken);
+        return result;
+    }
+
+    std::string FormatStartTime(const FILETIME& ft) {
+        SYSTEMTIME utcTime, localTime;
+        if (!FileTimeToSystemTime(&ft, &utcTime)) return "—";
+        SystemTimeToTzSpecificLocalTime(nullptr, &utcTime, &localTime);
+
+        char buf[32];
+        snprintf(buf, sizeof(buf), "%04d-%02d-%02d %02d:%02d",
+            localTime.wYear, localTime.wMonth, localTime.wDay,
+            localTime.wHour, localTime.wMinute);
+        return buf;
     }
 
     json ListProcesses() {
@@ -43,6 +86,8 @@ namespace {
                 std::string memoryStr = "—";
                 long long memoryBytes = 0;
                 std::string pathStr = "—";
+                std::string userStr = "—";
+                std::string startedStr = "—";
 
                 HANDLE hProcess = OpenProcess(
                     PROCESS_QUERY_LIMITED_INFORMATION | PROCESS_VM_READ,
@@ -64,12 +109,22 @@ namespace {
                         pathStr = WideToUtf8(pathBuf);
                     }
 
+                    userStr = GetProcessOwner(hProcess);
+
+
+                    FILETIME creationTime, exitTime, kernelTime, userTime;
+                    if (GetProcessTimes(hProcess, &creationTime, &exitTime, &kernelTime, &userTime)) {
+                        startedStr = FormatStartTime(creationTime);
+                    }
+
                     CloseHandle(hProcess);
                 }
 
                 procInfo["memory"] = memoryStr;
                 procInfo["memoryBytes"] = memoryBytes;
                 procInfo["path"] = pathStr;
+                procInfo["user"] = userStr;
+                procInfo["started"] = startedStr;
 
                 processes.push_back(procInfo);
             } while (Process32NextW(snapshot, &entry));

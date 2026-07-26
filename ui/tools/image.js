@@ -5,6 +5,8 @@ const ImageTool = {
     const file = input.files[0];
     if (!file) return;
 
+    document.getElementById('image-file-name').textContent = file.name;
+
     const reader = new FileReader();
     reader.onload = (e) => {
       this.loadedImageBase64 = e.target.result.split(',')[1];
