@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.20)
 project(DevToolbox LANGUAGES CXX C)
 
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -156,6 +157,7 @@ target_link_libraries(DevToolbox PRIVATE
     ${WEBVIEW2_DIR}/build/native/x64/WebView2LoaderStatic.lib
     nlohmann_json::nlohmann_json
     bcrypt.lib
+    shell32.lib
     rpcrt4.lib
     pugixml
     yaml-cpp::yaml-cpp

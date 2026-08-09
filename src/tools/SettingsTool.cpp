@@ -6,15 +6,22 @@
 #include <fstream>
 #include <sstream>
 #include <stdexcept>
+#include <shlobj.h>
+#pragma comment(lib, "shell32.lib")
 #pragma comment(lib, "shlwapi.lib")
 
 using json = nlohmann::json;
 
 std::string SettingsTool::GetSettingsFilePath() {
-    wchar_t exePath[MAX_PATH];
-    GetModuleFileNameW(nullptr, exePath, MAX_PATH);
-    PathRemoveFileSpecW(exePath);
-    std::wstring path = std::wstring(exePath) + L"\\settings.json";
+    wchar_t appDataPath[MAX_PATH];
+    if (FAILED(SHGetFolderPathW(nullptr, CSIDL_APPDATA, nullptr, 0, appDataPath))) {
+        GetTempPathW(MAX_PATH, appDataPath);
+    }
+
+    std::wstring dir = std::wstring(appDataPath) + L"\\DevToolbox";
+    CreateDirectoryW(dir.c_str(), nullptr); // если уже существует — ошибка просто игнорируется
+
+    std::wstring path = dir + L"\\settings.json";
     return WideToUtf8(path);
 }
 
