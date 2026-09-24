@@ -5,12 +5,12 @@ const CronTool = {
     sendToolRequest('cron', 'parse', input, (response) => {
       const output = document.getElementById('cron-output');
       if (response.status !== 'ok') {
-        output.textContent = 'Ошибка: ' + response.message;
+        output.textContent = I18n.t('Error: ') + response.message;
         return;
       }
 
       const result = JSON.parse(response.result);
-      output.innerHTML = '<strong>Ближайшие запуски:</strong><br>' +
+      output.innerHTML = '<strong>' + I18n.t('Next runs:') + '</strong><br>' +
         result.nextRuns.map(d => d).join('<br>');
     });
   }

@@ -2,7 +2,7 @@ const Base64Tool = {
   encode() {
     const input = document.getElementById('base64-input').value;
     sendToolRequest('base64', 'encode', input, (response) => {
-      const output = response.status === 'ok' ? response.result : 'Ошибка: ' + response.message;
+      const output = response.status === 'ok' ? response.result : I18n.t('Error: ') + response.message;
       document.getElementById('base64-output').value = output;
       if (response.status === 'ok') this.updateInfo('Encode', input, response.result);
     });
@@ -10,7 +10,7 @@ const Base64Tool = {
   decode() {
     const input = document.getElementById('base64-input').value;
     sendToolRequest('base64', 'decode', input, (response) => {
-      const output = response.status === 'ok' ? response.result : 'Ошибка: ' + response.message;
+      const output = response.status === 'ok' ? response.result : I18n.t('Error: ') + response.message;
       document.getElementById('base64-output').value = output;
       if (response.status === 'ok') this.updateInfo('Decode', input, response.result);
     });

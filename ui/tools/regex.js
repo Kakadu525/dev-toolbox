@@ -6,7 +6,7 @@ const RegexTool = {
 
     sendToolRequest('regex', 'test', payload, (response) => {
       document.getElementById('regex-output').value =
-        response.status === 'ok' ? response.result : 'Ошибка: ' + response.message;
+        response.status === 'ok' ? response.result : I18n.t('Error: ') + response.message;
     });
   }
 };

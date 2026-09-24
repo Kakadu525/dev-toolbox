@@ -26,11 +26,11 @@ const HttpTool = {
 
     const payload = JSON.stringify({ method, url, body, headers });
     const statusEl = document.getElementById('http-status');
-    statusEl.textContent = 'Отправка запроса...';
+    statusEl.textContent = I18n.t('Sending request...');
 
     sendToolRequest('http', 'send', payload, (response) => {
       if (response.status !== 'ok') {
-        statusEl.textContent = 'Ошибка: ' + response.message;
+        statusEl.textContent = I18n.t('Error: ') + response.message;
         document.getElementById('http-response-headers').value = '';
         document.getElementById('http-response-body').value = '';
         return;

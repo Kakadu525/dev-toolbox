@@ -33,7 +33,8 @@ std::string SettingsTool::Execute(const std::string& action, const std::string& 
         json defaults = {
             {"theme", "dark"},
             {"fontSize", "medium"},
-            {"accentColor", "#06b6d4"}
+            {"accentColor", "#06b6d4"},
+            {"language", "en"}
         };
 
         if (!file) {

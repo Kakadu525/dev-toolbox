@@ -5,19 +5,22 @@ const ImageTool = {
     const file = input.files[0];
     if (!file) return;
 
-    document.getElementById('image-file-name').textContent = file.name;
+    const fileNameEl = document.getElementById('image-file-name');
+    // A real file name must not be swapped back to "No file selected" on a language change.
+    fileNameEl.removeAttribute('data-i18n');
+    fileNameEl.textContent = file.name;
 
     const reader = new FileReader();
     reader.onload = (e) => {
       this.loadedImageBase64 = e.target.result.split(',')[1];
-      document.getElementById('image-status').textContent = 'Файл загружен: ' + file.name;
+      document.getElementById('image-status').textContent = I18n.t('File loaded: {name}', { name: file.name });
     };
     reader.readAsDataURL(file);
   },
 
   convert() {
     if (!this.loadedImageBase64) {
-      document.getElementById('image-status').textContent = 'Сначала выберите файл';
+      document.getElementById('image-status').textContent = I18n.t('Choose a file first');
       return;
     }
 
@@ -31,11 +34,11 @@ const ImageTool = {
       format, quality, width, height
     });
 
-    document.getElementById('image-status').textContent = 'Обработка...';
+    document.getElementById('image-status').textContent = I18n.t('Processing...');
 
     sendToolRequest('image', 'convert', payload, (response) => {
       if (response.status !== 'ok') {
-        document.getElementById('image-status').textContent = 'Ошибка: ' + response.message;
+        document.getElementById('image-status').textContent = I18n.t('Error: ') + response.message;
         return;
       }
 
@@ -54,7 +57,8 @@ const ImageTool = {
       link.style.display = 'inline-block';
 
       document.getElementById('image-status').textContent =
-        `Готово: ${result.width}x${result.height}, ${(result.sizeBytes / 1024).toFixed(1)} KB`;
+        I18n.t('Done: {width}x{height}, {size} KB',
+          { width: result.width, height: result.height, size: (result.sizeBytes / 1024).toFixed(1) });
     });
   }
 };

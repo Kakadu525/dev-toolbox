@@ -29,7 +29,7 @@ const CurlTool = {
 
     sendToolRequest('curl', 'generate', payload, (response) => {
       document.getElementById('curl-output').value =
-        response.status === 'ok' ? response.result : 'Ошибка: ' + response.message;
+        response.status === 'ok' ? response.result : I18n.t('Error: ') + response.message;
     });
   }
 };

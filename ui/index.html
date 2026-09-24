@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Dev Toolbox</title>
@@ -13,7 +13,7 @@
           <div class="sidebar-logo">D</div>
           <div>
             <div class="sidebar-title">Dev Toolbox</div>
-            <div class="sidebar-version">v1.0</div>
+            <div class="sidebar-version">v1.2</div>
           </div>
         </div>
         <input type="text" id="sidebar-search" class="sidebar-search" placeholder="Filter tools…">
@@ -138,14 +138,14 @@
           </div>
           <div class="tool-body">
             <span class="field-label">Input</span>
-            <textarea id="base64-input" placeholder="Введите текст"></textarea>
+            <textarea id="base64-input" placeholder="Enter text"></textarea>
             <div class="actions">
               <button onclick="Base64Tool.encode()">Encode</button>
               <button onclick="Base64Tool.decode()">Decode</button>
               <button onclick="clearFields('base64-input', 'base64-output'); document.getElementById('base64-info').style.display='none';" class="btn-clear">Clear</button>
             </div>
             <span class="field-label">Output</span>
-            <textarea id="base64-output" placeholder="Результат" readonly></textarea>
+            <textarea id="base64-output" placeholder="Result" readonly></textarea>
             <div class="info-bar" id="base64-info" style="display: none;">
               <div class="info-bar-item"><div class="label">Mode</div><div class="value" id="base64-info-mode">—</div></div>
               <div class="info-bar-item"><div class="label">Input length</div><div class="value" id="base64-info-inlen">—</div></div>
@@ -162,14 +162,14 @@
           </div>
           <div class="tool-body">
             <span class="field-label">Input</span>
-            <textarea id="hash-input" placeholder="Введите текст"></textarea>
+            <textarea id="hash-input" placeholder="Enter text"></textarea>
             <div class="actions">
               <button onclick="HashTool.md5()">MD5</button>
               <button onclick="HashTool.sha256()">SHA256</button>
               <button onclick="clearFields('hash-input', 'hash-output')" class="btn-clear">Clear</button>
             </div>
             <span class="field-label">Output</span>
-            <textarea id="hash-output" placeholder="Результат" readonly></textarea>
+            <textarea id="hash-output" placeholder="Result" readonly></textarea>
           </div>
         </section>
 
@@ -180,11 +180,11 @@
           </div>
           <div class="tool-body">
             <div class="actions">
-              <button onclick="UuidTool.generate()">Сгенерировать</button>
+              <button onclick="UuidTool.generate()" data-i18n>Generate</button>
               <button onclick="clearFields('uuid-output')" class="btn-clear">Clear</button>
             </div>
             <span class="field-label">Output</span>
-            <textarea id="uuid-output" placeholder="Результат" readonly></textarea>
+            <textarea id="uuid-output" placeholder="Result" readonly></textarea>
           </div>
         </section>
 
@@ -195,14 +195,14 @@
           </div>
           <div class="tool-body">
             <span class="field-label">Input</span>
-            <textarea id="json-input" placeholder='Например: {"name":"Иван","age":30}'></textarea>
+            <textarea id="json-input" placeholder='Example: {"name":"John","age":30}'></textarea>
             <div class="actions">
               <button onclick="JsonTool.pretty()">Pretty Print</button>
               <button onclick="JsonTool.minify()">Minify</button>
               <button onclick="clearFields('json-input', 'json-output')" class="btn-clear">Clear</button>
             </div>
             <span class="field-label">Output</span>
-            <textarea id="json-output" placeholder="Результат" readonly></textarea>
+            <textarea id="json-output" placeholder="Result" readonly></textarea>
           </div>
         </section>
 
@@ -213,14 +213,14 @@
           </div>
           <div class="tool-body">
             <span class="field-label">Input</span>
-            <textarea id="xml-input" placeholder="Например: <root><name>Иван</name></root>"></textarea>
+            <textarea id="xml-input" placeholder="Example: <root><name>John</name></root>"></textarea>
             <div class="actions">
               <button onclick="XmlTool.pretty()">Pretty Print</button>
               <button onclick="XmlTool.minify()">Minify</button>
               <button onclick="clearFields('xml-input', 'xml-output')" class="btn-clear">Clear</button>
             </div>
             <span class="field-label">Output</span>
-            <textarea id="xml-output" placeholder="Результат" readonly></textarea>
+            <textarea id="xml-output" placeholder="Result" readonly></textarea>
           </div>
         </section>
 
@@ -231,13 +231,13 @@
           </div>
           <div class="tool-body">
             <span class="field-label">Input</span>
-            <textarea id="yaml-input" placeholder="Например: name: Иван&#10;age: 30"></textarea>
+            <textarea id="yaml-input" placeholder="Example: name: John&#10;age: 30"></textarea>
             <div class="actions">
               <button onclick="YamlTool.format()">Format</button>
               <button onclick="clearFields('yaml-input', 'yaml-output')" class="btn-clear">Clear</button>
             </div>
             <span class="field-label">Output</span>
-            <textarea id="yaml-output" placeholder="Результат" readonly></textarea>
+            <textarea id="yaml-output" placeholder="Result" readonly></textarea>
           </div>
         </section>
 
@@ -248,13 +248,13 @@
           </div>
           <div class="tool-body">
             <span class="field-label">Token</span>
-            <textarea id="jwt-input" placeholder="Вставьте JWT токен"></textarea>
+            <textarea id="jwt-input" placeholder="Paste a JWT token"></textarea>
             <div class="actions">
               <button onclick="JwtTool.decode()">Decode</button>
               <button onclick="clearFields('jwt-input', 'jwt-output')" class="btn-clear">Clear</button>
             </div>
             <span class="field-label">Decoded</span>
-            <textarea id="jwt-output" placeholder="Результат" readonly></textarea>
+            <textarea id="jwt-output" placeholder="Result" readonly></textarea>
           </div>
         </section>
 
@@ -265,15 +265,15 @@
           </div>
           <div class="tool-body">
             <span class="field-label">Pattern</span>
-            <input type="text" id="regex-pattern" placeholder="Например: \d+" class="themed-input" style="width: 100%; margin-bottom: 12px;">
+            <input type="text" id="regex-pattern" placeholder="Example: \d+" class="themed-input" style="width: 100%; margin-bottom: 12px;">
             <span class="field-label">Test string</span>
-            <textarea id="regex-text" placeholder="Тестовый текст"></textarea>
+            <textarea id="regex-text" placeholder="Test text"></textarea>
             <div class="actions">
               <button onclick="RegexTool.test()">Test</button>
               <button onclick="clearFields('regex-pattern', 'regex-text', 'regex-output')" class="btn-clear">Clear</button>
             </div>
             <span class="field-label">Matches</span>
-            <textarea id="regex-output" placeholder="Результат" readonly></textarea>
+            <textarea id="regex-output" placeholder="Result" readonly></textarea>
           </div>
         </section>
 
@@ -286,11 +286,11 @@
             <div style="display: flex; gap: 12px;">
               <div style="flex: 1;">
                 <span class="field-label">Text A</span>
-                <textarea id="diff-text-a" placeholder="Текст A"></textarea>
+                <textarea id="diff-text-a" placeholder="Text A"></textarea>
               </div>
               <div style="flex: 1;">
                 <span class="field-label">Text B</span>
-                <textarea id="diff-text-b" placeholder="Текст B"></textarea>
+                <textarea id="diff-text-b" placeholder="Text B"></textarea>
               </div>
             </div>
             <div class="actions">
@@ -309,7 +309,7 @@
           </div>
           <div class="tool-body">
             <span class="field-label">HEX color</span>
-            <input type="text" id="color-input" placeholder="Например: #ff5733" class="themed-input" style="width: 300px; margin-bottom: 12px;">
+            <input type="text" id="color-input" placeholder="Example: #ff5733" class="themed-input" style="width: 300px; margin-bottom: 12px;">
             <div class="actions">
               <button onclick="ColorTool.convert()">Convert</button>
               <button onclick="clearFields('color-input', 'color-output')" class="btn-clear">Clear</button>
@@ -328,7 +328,7 @@
           </div>
           <div class="tool-body">
             <span class="field-label">Cron expression</span>
-            <input type="text" id="cron-input" placeholder="Например: */5 9-17 * * 1-5" class="themed-input" style="width: 300px; margin-bottom: 12px;">
+            <input type="text" id="cron-input" placeholder="Example: */5 9-17 * * 1-5" class="themed-input" style="width: 300px; margin-bottom: 12px;">
             <div class="actions">
               <button onclick="CronTool.parse()">Parse</button>
               <button onclick="clearFields('cron-input', 'cron-output')" class="btn-clear">Clear</button>
@@ -345,13 +345,13 @@
           </div>
           <div class="tool-body">
             <span class="field-label">Query</span>
-            <textarea id="sql-input" placeholder="Например: select id,name from users where age>18 and city='Moscow'"></textarea>
+            <textarea id="sql-input" placeholder="Example: select id,name from users where age>18 and city='London'"></textarea>
             <div class="actions">
               <button onclick="SqlTool.format()">Format</button>
               <button onclick="clearFields('sql-input', 'sql-output')" class="btn-clear">Clear</button>
             </div>
             <span class="field-label">Formatted</span>
-            <textarea id="sql-output" placeholder="Результат" readonly></textarea>
+            <textarea id="sql-output" placeholder="Result" readonly></textarea>
           </div>
         </section>
 
@@ -377,7 +377,7 @@
             <button onclick="CurlTool.addHeader()" class="btn-ghost" style="margin-bottom: 16px;">+ Header</button>
 
             <span class="field-label">Body</span>
-            <textarea id="curl-body" placeholder="Тело запроса (JSON и т.д.), необязательно"></textarea>
+            <textarea id="curl-body" placeholder="Request body (JSON etc.), optional"></textarea>
 
             <div class="actions">
               <button onclick="CurlTool.generate()">Generate</button>
@@ -385,7 +385,7 @@
             </div>
 
             <span class="field-label">Command</span>
-            <textarea id="curl-output" placeholder="Результат" readonly></textarea>
+            <textarea id="curl-output" placeholder="Result" readonly></textarea>
           </div>
         </section>
 
@@ -397,7 +397,7 @@
           <div class="tool-body" style="display: flex; gap: 24px; align-items: flex-start;">
             <div style="flex: 1; min-width: 0;">
               <span class="field-label">Content</span>
-              <textarea id="qr-text" placeholder="Текст или URL для кодирования"></textarea>
+              <textarea id="qr-text" placeholder="Text or URL to encode"></textarea>
 
               <span class="field-label">Error correction</span>
               <select id="qr-ecc" class="themed-input" style="margin-bottom: 12px;">
@@ -452,7 +452,7 @@
             <button onclick="HttpTool.addHeader()" class="btn-ghost" style="margin-bottom: 16px;">+ Header</button>
 
             <span class="field-label">Body</span>
-            <textarea id="http-body" placeholder="Тело запроса (для POST/PUT/PATCH)"></textarea>
+            <textarea id="http-body" placeholder="Request body (for POST/PUT/PATCH)"></textarea>
 
             <div id="http-status" style="margin: 12px 0; font-family: 'JetBrains Mono', monospace;"></div>
 
@@ -478,7 +478,7 @@
             <span class="field-label">Source file</span>
             <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
             <button onclick="document.getElementById('image-file-input').click()">Open File...</button>
-            <span id="image-file-name" style="color: var(--text-muted); font-size: 12.5px;">Файл не выбран</span>
+            <span id="image-file-name" style="color: var(--text-muted); font-size: 12.5px;" data-i18n>No file selected</span>
             <input type="file" id="image-file-input" accept="image/*" onchange="ImageTool.onFileSelected(this)" class="visually-hidden">
           </div>
 
@@ -497,18 +497,18 @@
               </div>
               <div>
                 <span class="field-label">Width</span>
-                <input type="number" id="image-width" placeholder="авто" class="themed-input" style="width: 80px;">
+                <input type="number" id="image-width" placeholder="auto" class="themed-input" style="width: 80px;">
               </div>
               <div>
                 <span class="field-label">Height</span>
-                <input type="number" id="image-height" placeholder="авто" class="themed-input" style="width: 80px;">
+                <input type="number" id="image-height" placeholder="auto" class="themed-input" style="width: 80px;">
               </div>
             </div>
 
             <div class="actions">
               <button onclick="ImageTool.convert()">Convert</button>
               <button onclick="document.getElementById('image-preview').style.display='none'; document.getElementById('image-download').style.display='none'; document.getElementById('image-status').textContent=''; ImageTool.loadedImageBase64=null;" class="btn-clear">Clear</button>
-              <a id="image-download" style="display: none; color: var(--accent); margin-left: 4px;">Скачать результат</a>
+              <a id="image-download" style="display: none; color: var(--accent); margin-left: 4px;" data-i18n>Download result</a>
             </div>
 
             <div id="image-status" style="margin: 12px 0; color: var(--text-muted);"></div>
@@ -525,7 +525,7 @@
             <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 12px; flex-wrap: wrap;">
               <button onclick="LogTool.pickFile()">Open File...</button>
               <button id="log-watch-btn" onclick="LogTool.toggleWatch()" class="btn-ghost">Start Watching</button>
-              <input type="text" id="log-filter" placeholder="Фильтр (например: ERROR)" oninput="LogTool.filter()" class="themed-input">
+              <input type="text" id="log-filter" placeholder="Filter (e.g. ERROR)" oninput="LogTool.filter()" class="themed-input">
               <button onclick="document.getElementById('log-filter').value=''; LogTool.renderFiltered();" class="btn-clear">Clear Filter</button>
             </div>
             <div id="log-filename" style="color: var(--text-muted); font-family: 'JetBrains Mono', monospace; margin-bottom: 4px;"></div>
@@ -580,7 +580,7 @@
           <div class="tool-body">
             <div class="actions">
               <button onclick="ClipboardTool.refresh()">Refresh</button>
-              <button onclick="ClipboardTool.clear()" class="btn-danger">Очистить историю</button>
+              <button onclick="ClipboardTool.clear()" class="btn-danger" data-i18n>Clear history</button>
             </div>
             <div id="clipboard-status" style="color: var(--text-muted); margin-bottom: 12px;"></div>
             <div id="clipboard-list"></div>
@@ -603,6 +603,17 @@
                 <div class="segmented" id="settings-theme-group">
                   <button data-value="dark" class="segmented-btn">Dark</button>
                   <button data-value="light" class="segmented-btn">Light</button>
+                </div>
+              </div>
+
+              <div class="settings-row">
+                <div>
+                  <div class="settings-row-label">Language</div>
+                  <div class="settings-row-desc">Hints and messages</div>
+                </div>
+                <div class="segmented" id="settings-language-group">
+                  <button data-value="en" class="segmented-btn">English</button>
+                  <button data-value="ru" class="segmented-btn">Русский</button>
                 </div>
               </div>
 
@@ -636,7 +647,7 @@
             <div class="settings-section" style="margin-top: 24px;">
               <h3>About</h3>
               <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-                <div class="info-bar-item themed-input" style="padding: 10px 14px;"><div class="label">Version</div><div class="value">v1.1</div></div>
+                <div class="info-bar-item themed-input" style="padding: 10px 14px;"><div class="label">Version</div><div class="value">v1.2</div></div>
                 <div class="info-bar-item themed-input" style="padding: 10px 14px;"><div class="label">Tools</div><div class="value">19 tools</div></div>
               </div>
             </div>
@@ -648,6 +659,7 @@
     </main>
   </div>
 
+  <script src="i18n.js"></script>
   <script src="bridge.js"></script>
   <script src="tools/base64.js"></script>
   <script src="tools/hash.js"></script>

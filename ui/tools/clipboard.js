@@ -2,7 +2,7 @@ const ClipboardTool = {
   refresh() {
     sendToolRequest('clipboard', 'list', '', (response) => {
       if (response.status !== 'ok') {
-        document.getElementById('clipboard-status').textContent = 'Ошибка: ' + response.message;
+        document.getElementById('clipboard-status').textContent = I18n.t('Error: ') + response.message;
         return;
       }
       const result = JSON.parse(response.result);
@@ -15,7 +15,8 @@ const ClipboardTool = {
     container.innerHTML = '';
 
     if (history.length === 0) {
-      container.innerHTML = '<div style="color: #888;">История пуста. Скопируйте текст или изображение (Ctrl+C) в любом приложении.</div>';
+      container.innerHTML = '<div style="color: #888;">' +
+        I18n.t('History is empty. Copy text or an image (Ctrl+C) in any application.') + '</div>';
       return;
     }
 
@@ -29,13 +30,13 @@ const ClipboardTool = {
             <img src="data:image/png;base64,${entry.content}" alt="clipboard image">
             <div class="clipboard-image-meta">${entry.width}×${entry.height}</div>
           </div>
-          <button class="clipboard-restore-btn" data-index="${index}">Восстановить</button>
+          <button class="clipboard-restore-btn" data-index="${index}">${I18n.t('Restore')}</button>
         `;
       } else {
         const preview = entry.content.length > 200 ? entry.content.substring(0, 200) + '…' : entry.content;
         item.innerHTML = `
           <div class="clipboard-item-text">${this.escapeHtml(preview)}</div>
-          <button class="clipboard-restore-btn" data-index="${index}">Восстановить</button>
+          <button class="clipboard-restore-btn" data-index="${index}">${I18n.t('Restore')}</button>
         `;
       }
       container.appendChild(item);
@@ -48,21 +49,21 @@ const ClipboardTool = {
     const textCount = history.filter(e => e.type === 'text').length;
     const imageCount = history.filter(e => e.type === 'image').length;
     document.getElementById('clipboard-status').textContent =
-      `Текстовых записей: ${textCount} / 50, изображений: ${imageCount} / 10`;
+      I18n.t('Text entries: {text} / 50, images: {images} / 10', { text: textCount, images: imageCount });
   },
 
   restore(index) {
     sendToolRequest('clipboard', 'restore', String(index), (response) => {
       if (response.status !== 'ok') {
-        document.getElementById('clipboard-status').textContent = 'Ошибка: ' + response.message;
+        document.getElementById('clipboard-status').textContent = I18n.t('Error: ') + response.message;
         return;
       }
-      document.getElementById('clipboard-status').textContent = 'Скопировано в буфер обмена';
+      document.getElementById('clipboard-status').textContent = I18n.t('Copied to clipboard');
     });
   },
 
   clear() {
-    if (!confirm('Очистить всю историю буфера обмена?')) return;
+    if (!confirm(I18n.t('Clear the whole clipboard history?'))) return;
     sendToolRequest('clipboard', 'clear', '', () => {
       this.refresh();
     });

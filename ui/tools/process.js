@@ -8,7 +8,7 @@ const ProcessTool = {
     document.getElementById('process-stat-count').textContent = '…';
     sendToolRequest('process', 'list', '', (response) => {
       if (response.status !== 'ok') {
-        document.getElementById('process-stat-count').textContent = 'Ошибка';
+        document.getElementById('process-stat-count').textContent = I18n.t('Error');
         return;
       }
       const result = JSON.parse(response.result);
@@ -116,9 +116,9 @@ const ProcessTool = {
   },
 
   terminate(pid, name) {
-    if (!confirm(`Завершить процесс "${name}" (PID ${pid})?`)) return;
+    if (!confirm(I18n.t('End process "{name}" (PID {pid})?', { name, pid }))) return;
     sendToolRequest('process', 'terminate', String(pid), (response) => {
-      if (response.status !== 'ok') { alert('Ошибка: ' + response.message); return; }
+      if (response.status !== 'ok') { alert(I18n.t('Error: ') + response.message); return; }
       const result = JSON.parse(response.result);
       if (!result.success) { alert(result.message); }
       else { this.refresh(); }

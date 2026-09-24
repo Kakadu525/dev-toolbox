@@ -10,7 +10,7 @@ const QrTool = {
       const container = document.getElementById('qr-output');
       if (response.status !== 'ok') {
         container.innerHTML = '';
-        container.textContent = 'Ошибка: ' + response.message;
+        container.textContent = I18n.t('Error: ') + response.message;
         document.getElementById('qr-info').style.display = 'none';
         document.getElementById('qr-download-btn').style.display = 'none';
         this.lastSvgString = null;

@@ -152,7 +152,7 @@ namespace {
             return json{
                 {"success", false},
                 {"message", "Failed to terminate process (PID " + std::to_string(pid) + "): " + GetSystemErrorMessage(err) +
-                            ". Возможно, процесс защищён системой (Protected Process) или требует больше прав."}
+                            ". The process may be protected by the system (Protected Process) or require more privileges."}
             };
         }
 

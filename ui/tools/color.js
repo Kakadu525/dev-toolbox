@@ -4,7 +4,7 @@ const ColorTool = {
 
     sendToolRequest('color', 'convert', input, (response) => {
       if (response.status !== 'ok') {
-        document.getElementById('color-output').textContent = 'Ошибка: ' + response.message;
+        document.getElementById('color-output').textContent = I18n.t('Error: ') + response.message;
         document.getElementById('color-preview').style.background = 'transparent';
         return;
       }

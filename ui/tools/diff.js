@@ -9,7 +9,7 @@ const DiffTool = {
       container.innerHTML = '';
 
       if (response.status !== 'ok') {
-        container.textContent = 'Ошибка: ' + response.message;
+        container.textContent = I18n.t('Error: ') + response.message;
         return;
       }
 

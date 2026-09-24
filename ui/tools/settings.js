@@ -1,12 +1,12 @@
 const SettingsTool = {
-  current: { theme: 'dark', fontSize: 'medium', accentColor: '#06b6d4' },
+  current: { theme: 'dark', fontSize: 'medium', accentColor: '#06b6d4', language: 'en' },
   fontSizes: ['small', 'medium', 'large'],
   fontSizeLabels: { small: 'Small', medium: 'Medium', large: 'Large' },
 
   load() {
     sendToolRequest('settings', 'load', '', (response) => {
       if (response.status !== 'ok') return;
-      this.current = Object.assign({ accentColor: '#06b6d4' }, JSON.parse(response.result));
+      this.current = Object.assign({ accentColor: '#06b6d4', language: 'en' }, JSON.parse(response.result));
       this.applyAll();
       this.syncControls();
     });
@@ -15,7 +15,7 @@ const SettingsTool = {
   save() {
     sendToolRequest('settings', 'save', JSON.stringify(this.current), (response) => {
       document.getElementById('settings-status').textContent =
-        response.status === 'ok' ? 'Настройки сохранены' : 'Ошибка: ' + response.message;
+        response.status === 'ok' ? I18n.t('Settings saved') : I18n.t('Error: ') + response.message;
     });
   },
 
@@ -28,6 +28,13 @@ const SettingsTool = {
 
   setAccent(color) {
     this.current.accentColor = color;
+    this.applyAll();
+    this.syncControls();
+    this.save();
+  },
+
+  setLanguage(language) {
+    this.current.language = language;
     this.applyAll();
     this.syncControls();
     this.save();
@@ -50,7 +57,9 @@ const SettingsTool = {
     document.body.classList.add('font-' + this.current.fontSize);
 
     document.body.style.setProperty('--accent', this.current.accentColor);
-},
+
+    I18n.setLanguage(this.current.language);
+  },
 
   syncControls() {
     document.querySelectorAll('#settings-theme-group .segmented-btn').forEach(btn => {
@@ -58,6 +67,9 @@ const SettingsTool = {
     });
     document.querySelectorAll('#settings-accent-group .swatch').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.value === this.current.accentColor);
+    });
+    document.querySelectorAll('#settings-language-group .segmented-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.value === this.current.language);
     });
     document.getElementById('settings-font-size-value').textContent =
       this.fontSizeLabels[this.current.fontSize];
@@ -72,5 +84,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   document.querySelectorAll('#settings-accent-group .swatch').forEach(btn => {
     btn.addEventListener('click', () => SettingsTool.setAccent(btn.dataset.value));
+  });
+  document.querySelectorAll('#settings-language-group .segmented-btn').forEach(btn => {
+    btn.addEventListener('click', () => SettingsTool.setLanguage(btn.dataset.value));
   });
 });

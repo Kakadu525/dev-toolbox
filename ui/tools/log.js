@@ -6,7 +6,7 @@ const LogTool = {
   pickFile() {
     sendToolRequest('log', 'pickFile', '', (response) => {
       if (response.status !== 'ok') {
-        document.getElementById('log-status').textContent = 'Ошибка: ' + response.message;
+        document.getElementById('log-status').textContent = I18n.t('Error: ') + response.message;
         return;
       }
       const result = JSON.parse(response.result);
@@ -22,19 +22,19 @@ const LogTool = {
     if (!this.currentPath) return;
     sendToolRequest('log', 'readAll', this.currentPath, (response) => {
       if (response.status !== 'ok') {
-        document.getElementById('log-status').textContent = 'Ошибка: ' + response.message;
+        document.getElementById('log-status').textContent = I18n.t('Error: ') + response.message;
         return;
       }
       const result = JSON.parse(response.result);
       this.rawContent = result.content;
       this.renderFiltered();
-      document.getElementById('log-status').textContent = `Загружено: ${(result.sizeBytes / 1024).toFixed(1)} KB`;
+      document.getElementById('log-status').textContent = I18n.t('Loaded: {size} KB', { size: (result.sizeBytes / 1024).toFixed(1) });
     });
   },
 
   toggleWatch() {
     if (!this.currentPath) {
-      document.getElementById('log-status').textContent = 'Сначала выберите файл';
+      document.getElementById('log-status').textContent = I18n.t('Choose a file first');
       return;
     }
 
