@@ -355,6 +355,24 @@ button {
   background: #f4706722;
 }
 
+/* ── Process Explorer: shown only when the app runs without elevation ── */
+.elevation-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 10px 14px;
+  border: 1px solid var(--warning);
+  border-radius: 6px;
+  color: var(--warning);
+  font-size: 13px;
+}
+
+.elevation-banner button {
+  flex-shrink: 0;
+}
+
 /* ── Status badge ── */
 .status-badge {
   display: inline-block;

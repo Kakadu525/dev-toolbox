@@ -13,7 +13,7 @@
           <div class="sidebar-logo">D</div>
           <div>
             <div class="sidebar-title">Dev Toolbox</div>
-            <div class="sidebar-version">v1.2</div>
+            <div class="sidebar-version">v1.3</div>
           </div>
         </div>
         <input type="text" id="sidebar-search" class="sidebar-search" placeholder="Filter tools…">
@@ -540,6 +540,10 @@
             <p>Inspect and manage running system processes</p>
           </div>
           <div class="tool-body">
+            <div id="process-elevation-banner" class="elevation-banner" style="display: none;">
+              <span data-i18n>Running without administrator rights: some system processes can't be inspected or ended.</span>
+              <button onclick="ProcessTool.restartElevated()" data-i18n>Restart as administrator</button>
+            </div>
             <div class="info-bar" style="margin-bottom: 16px;">
               <div class="info-bar-item"><div class="label">Processes</div><div class="value" id="process-stat-count">—</div></div>
               <div class="info-bar-item"><div class="label">Mem Total</div><div class="value" id="process-stat-mem">—</div></div>
@@ -647,7 +651,7 @@
             <div class="settings-section" style="margin-top: 24px;">
               <h3>About</h3>
               <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-                <div class="info-bar-item themed-input" style="padding: 10px 14px;"><div class="label">Version</div><div class="value">v1.2</div></div>
+                <div class="info-bar-item themed-input" style="padding: 10px 14px;"><div class="label">Version</div><div class="value">v1.3</div></div>
                 <div class="info-bar-item themed-input" style="padding: 10px 14px;"><div class="label">Tools</div><div class="value">19 tools</div></div>
               </div>
             </div>

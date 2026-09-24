@@ -4,6 +4,22 @@ const ProcessTool = {
   sortDirection: 'desc',
   selectedPid: null,
 
+  checkElevation() {
+    sendToolRequest('process', 'status', '', (response) => {
+      if (response.status !== 'ok') return;
+      const { elevated } = JSON.parse(response.result);
+      document.getElementById('process-elevation-banner').style.display = elevated ? 'none' : 'flex';
+    });
+  },
+
+  restartElevated() {
+    // On success this window closes and an elevated one opens; a declined UAC
+    // prompt just leaves everything as it was.
+    sendToolRequest('process', 'restartElevated', '', (response) => {
+      if (response.status !== 'ok') alert(I18n.t('Error: ') + response.message);
+    });
+  },
+
   refresh() {
     document.getElementById('process-stat-count').textContent = '…';
     sendToolRequest('process', 'list', '', (response) => {
@@ -125,3 +141,5 @@ const ProcessTool = {
     });
   }
 };
+
+document.addEventListener('DOMContentLoaded', () => ProcessTool.checkElevation());

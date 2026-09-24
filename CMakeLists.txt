@@ -171,8 +171,10 @@ target_link_libraries(DevToolbox PRIVATE
 
 target_compile_definitions(DevToolbox PRIVATE UNICODE _UNICODE)
 
+# Start with normal rights: only Process Explorer needs elevation, and it offers
+# "Restart as administrator" itself instead of a UAC prompt on every launch.
 set_target_properties(DevToolbox PROPERTIES
-    LINK_FLAGS "/MANIFESTUAC:\"level='requireAdministrator' uiAccess='false'\""
+    LINK_FLAGS "/MANIFESTUAC:\"level='asInvoker' uiAccess='false'\""
 )
 
 # Копируем ui/ рядом с exe как запасной вариант (fallback), на случай если

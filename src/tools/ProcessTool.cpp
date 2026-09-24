@@ -4,6 +4,7 @@
 #include <tlhelp32.h>
 #include <psapi.h>
 #include <sddl.h>
+#include <shellapi.h>
 #include <nlohmann/json.hpp>
 #include <stdexcept>
 #include <sstream>
@@ -134,6 +135,39 @@ namespace {
         return processes;
     }
 
+    bool IsElevated() {
+        HANDLE hToken = nullptr;
+        if (!OpenProcessToken(GetCurrentProcess(), TOKEN_QUERY, &hToken)) return false;
+        TOKEN_ELEVATION elevation = {};
+        DWORD size = 0;
+        BOOL ok = GetTokenInformation(hToken, TokenElevation, &elevation, sizeof(elevation), &size);
+        CloseHandle(hToken);
+        return ok && elevation.TokenIsElevated;
+    }
+
+    // Starts an elevated copy of this exe and quits the current one. Runs on the UI
+    // thread (WebView2 message handler), so PostQuitMessage ends the main loop cleanly
+    // and the extracted UI folder still gets removed on the way out.
+    json RestartElevated() {
+        wchar_t exePath[MAX_PATH];
+        GetModuleFileNameW(nullptr, exePath, MAX_PATH);
+
+        SHELLEXECUTEINFOW info = { sizeof(info) };
+        info.lpVerb = L"runas";
+        info.lpFile = exePath;
+        info.nShow = SW_SHOWNORMAL;
+        if (!ShellExecuteExW(&info)) {
+            DWORD err = GetLastError();
+            if (err == ERROR_CANCELLED) {
+                return json{ {"started", false} };
+            }
+            throw std::runtime_error("Failed to restart as administrator: " + GetSystemErrorMessage(err));
+        }
+
+        PostQuitMessage(0);
+        return json{ {"started", true} };
+    }
+
     json TerminateProcessById(DWORD pid) {
         HANDLE hProcess = OpenProcess(PROCESS_TERMINATE, FALSE, pid);
         if (!hProcess) {
@@ -164,6 +198,14 @@ std::string ProcessTool::Execute(const std::string& action, const std::string& p
     if (action == "list") {
         json result = { {"processes", ListProcesses()} };
         return result.dump();
+    }
+
+    if (action == "status") {
+        return json{ {"elevated", IsElevated()} }.dump();
+    }
+
+    if (action == "restartElevated") {
+        return RestartElevated().dump();
     }
 
     if (action == "terminate") {

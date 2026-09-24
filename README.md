@@ -118,8 +118,9 @@ No installation needed. Download `DevToolbox.exe` from
 [Releases](https://github.com/Kakadu525/dev-toolbox/releases/latest) and run
 it: everything else is inside the file.
 
-> **Administrator rights.** The app asks for elevated rights on start, because
-> Process Explorer needs them to view and end system processes.
+> **Administrator rights.** The app starts with normal rights. Only Process
+> Explorer needs elevation to inspect and end system processes; when it's
+> missing, the tool shows a **Restart as administrator** button.
 
 ### Requirements
 

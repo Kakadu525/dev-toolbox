@@ -29,6 +29,9 @@ const I18n = {
     'Download result': 'Скачать результат',
     'Filter (e.g. ERROR)': 'Фильтр (например: ERROR)',
     'Clear history': 'Очистить историю',
+    "Running without administrator rights: some system processes can't be inspected or ended.":
+      'Запущено без прав администратора: часть системных процессов нельзя просмотреть или завершить.',
+    'Restart as administrator': 'Перезапустить от администратора',
 
     // Messages built in tools/*.js
     'Error: ': 'Ошибка: ',
